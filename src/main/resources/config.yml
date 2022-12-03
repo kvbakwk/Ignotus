@@ -1,0 +1,167 @@
+#
+# Hey, Hey, Hello!
+# This is plugin's, of course.. config.
+# It's all from me. Have a fun!
+# Author: thekuba
+#
+
+database:
+  host: "mysql.titanaxe.com"
+  port: "3306"
+  database: "srv218770"
+  username: "srv218770"
+  password: "zMYfLNvP"
+
+messages: # Support colors by '§' only. Sorry :<
+  no-permission: "§4» §cNie masz dostępu do tej komendy."
+  error: "§c» §7Operacja nie powiodła się. Skontaktuj się z administracją."
+  usage: "§cUżyj: §7/set {1} <nazwa>"
+  usage-admin: "§7Użyj: §a/set {0} {1} <nazwa>"
+  unknown: "§a» §7Możesz ustawić jedynie wartości:\n§a» §aInstagram§7, §aYouTube§7, §aTwitch§7 i §aDiscord"
+  player-quit: "§a» §7Przykro nam, ten gracz wyszedł z serwera, poczekaj z tym aż wróci."
+  long: 30
+  toolong: "§a» §7Nazwa nie może być taka długa!\n§a» §7Maksymalna ilość znaków to: §a{1}"
+  success: "§a» §7Twoja nazwa {0} została ustawiona na §a{1}§7."
+  success-admin: "§c» §7Nazwa {0} §c{1} §7ustawiona na §c{2}§7."
+  gift-get: "§a» §7Dostałeś właśnie przedmiot od §a{1}§7!"
+  gift-get-not-place: "§a» §7Nie masz miejsca w ekwipunku, prezent został upuszczony."
+  gift-give: "§a» §7Przedmiot został pomyślnie dostarczony do §a{1}§7!"
+  gift-cooldown: "§a» §7Następny prezent możesz dać dopiero za §a{1} §7sekund."
+
+  # Use {1} for amount of cleared items on the ground.
+  abyss-open: "§3» §7Usunięto §3{1} §7itemów z ziemi! Trafiły one do §3/otchlan§7i."
+  abyss-timer: "§3» §7Itemy z ziemi zostaną usunięte za §3{1} §7sekund."
+  abyss-last3msg: "§3» §7{1}"
+  # You may use {1} for the remaining time.
+  abyss-closed: "§3» §bOtchłań §7jest na razie zamknięta."
+  abyss-isclosing: "§3» §bOtchłań §7została własnie §cZamknięta§7."
+
+items: # Support colors by '&' !!! :>
+  title: "%vault_prefix%%player_name%"
+  profile:
+    # If command is "", no commands.
+    # {1} is nick of receiver.
+    commandL: ""
+    commandR: ""
+    name: " "
+    lore:
+      - '&7Stan Konta: &6%vault_eco_balance_commas% $'
+      - '&7Liczba Zabójstw: &c%statistic_player_kills%'
+      - '&7Liczba Śmierci: &4%statistic_deaths%'
+      - '&7Ukończone Misje: &a%superior_player_missions_completed%'
+      - ''
+      - '&7Wyspa: &a%superior_island_name_leader%'
+      - '&7Członków: &a%superior_island_team_size%'
+      - '&7Warpów: &a%superior_island_warps%'
+      - ''
+      - '&7Level Wyspy: &2%superior_island_level%'
+      - '&7Wartość Wyspy: &6%superior_island_worth% $'
+      - ''
+  item0:
+    # If command is "", no commands.
+    # {1} is nick of receiver.
+    commandL: "trade {1}"
+    commandR: ""
+    name: "&7Bezpieczna &c&lWymiana"
+    lore:
+      - ''
+      - '&7Boisz się o swoje interesy?'
+      - '&7Podejrzewasz, że ktoś chce Cię oszukać?'
+      - ''
+      - '&7Użyj bezpiecznej wymiany, aby już nigdy,'
+      - '&7nie dać się naciągnąć na jakąś grubą'
+      - '&7sprzedaż lub wymianę bez zabezpieczeń.'
+      - ''
+      - '&cKliknij, aby zaproponować tej osobie Wymianę.'
+  item1:
+    # If command is "", no commands.
+    # {1} is nick of receiver.
+    commandL: "is visit {1}"
+    commandR: "is warp {1}"
+    name: "&7Teleportacja &2na Wyspę"
+    lore:
+      - ''
+      - '&cAby móc, przenieść się na wyspę tego'
+      - '&cgracza, musi on mieć na swojej wyspie'
+      - '&ctabliczkę powitalną lub warpy.'
+      - ''
+      - '&2LPM, aby odwiedzić Wyspę gracza %player_name%.'
+      - '&2PPM, aby otworzyć Menu Warpów tej osoby.'
+  item2:
+    # If command is "", no commands.
+    # {1} is nick of receiver.
+    commandL: "is coop {1}"
+    commandR: "is perms {1}"
+    name: "&7Zaufaj graczu &6%player_name%"
+    lore:
+      - ''
+      - '&7Robiąc gracza zaufanym, dajesz mu tymczasowy'
+      - '&7dostęp do Twojej wyspy, który kończy się'
+      - '&7wraz z wyjściem jego, wszystkich członków'
+      - '&7Twojej wyspy lub wyrzuceniu go za pomocą'
+      - '&7komendy &e/is uncoop %player_name%'
+      - ''
+      - '&6LPM, aby zaufać temu graczowi.'
+      - '&6PPM, aby zmienić uprawnienia tylko dla tego gracza.'
+  gift:
+    # In seconds
+    cooldown: 10
+    name: "&7Prezent dla &e%player_name%"
+    lore:
+      - ''
+      - '&7Chcesz coś podarować temu graczowi?'
+      - '&7Wystarczy, że klikniesz na żądany przedmiot'
+      - '&7w swoim ekwipunku, a następnie potwierdzisz'
+      - '&7dar, klikając na niego dwukrotnie.'
+      - ''
+      - '&eKliknij na przedmiot w swoim ekwipunku.'
+    lore-item:
+      - ''
+      - '&e&m                                                       '
+      - '&7Aby podarować ten przedmiot temu graczowi,'
+      - '&7kliknij go trzymając przycisk &eShift&7.'
+  media:
+    name: "&3Połączone Konta"
+    lore:
+      - ''
+      - '&7Instagram: &c%ignotus_instagram%'
+      - ''
+      - '&7YouTube: &f%ignotus_youtube%'
+      - ''
+      - '&7Twitch: &5%ignotus_twitch%'
+      - ''
+      - '&7Snapchat: &e%ignotus_snapchat%'
+      - ''
+      - '&7Discord: &b&l%ignotus_discord%'
+      - ''
+      - '&7Aby ustawić swoje konta, użyj komendy &3/ustaw'
+    # This is the text that displays if someone of media doesn't have a name set.
+    if-empty: ""
+  blank:
+    name: " "
+    lore: []
+    amount: 1
+    material: "GRAY_STAINED_GLASS_PANE"
+nametags:
+  enable: true
+interact:
+  enable: true
+  antypvptime: 10
+abyss:
+  enable: true
+  title: "               &3&lOtchlan"
+  interval: 120
+  lookable: 0
+  timer:
+    - 60
+    - 10
+  arrow-right:
+    name: "&aNastępna Strona"
+    lore: []
+  arrow-left:
+    name: "&cPoprzednia Strona"
+    lore: []
+  bossbar:
+    time: 10
+    before: "§7Itemy z ziemi zostaną usunięte za:"
+    after: "§7Usunięto §3{1} §7itemów z ziemi! Trafiły one do §3/otchlan§7i."

@@ -1,0 +1,155 @@
+groups:
+  root:
+    prefix: "&8[&4ROOT&8] &4"
+    player-name: "%player_name%"
+    suffix: ""
+  technik:
+    prefix: "&8[&4Technik&8] &c"
+    player-name: "%player_name%"
+    suffix: ""
+  headadmin:
+    prefix: "&8[&4HeadAdmin&8] &4"
+    player-name: "%player_name%"
+    suffix: ""
+  admin:
+    prefix: "&8[&cAdmin&8] &4"
+    player-name: "%player_name%"
+    suffix: ""
+  opiekun:
+    prefix: "&8[&cOpiekun&8] &c"
+    player-name: "%player_name%"
+    suffix: ""
+  jradmin:
+    prefix: "&8[&bJrAdmin&8] &b"
+    player-name: "%player_name%"
+    suffix: ""
+  architekt:
+    prefix: "&8[&6Architekt&8] &e"
+    player-name: "%player_name%"
+    suffix: ""
+  mod:
+    prefix: "&8[&2Mod&8] &2"
+    player-name: "%player_name%"
+    suffix: ""
+  jrmod:
+    prefix: "&8[&2JrMod&8] &a"
+    player-name: "%player_name%"
+    suffix: ""
+  chatmod:
+    prefix: "&8[&3ChatMod&8] &a"
+    player-name: "%player_name%"
+    suffix: ""
+  testbud:
+    prefix: "&8[&7TestBud&8] &7"
+    player-name: "%player_name%"
+    suffix: ""
+  rekrut:
+    prefix: "&8[&dRekrut&8] &d"
+    player-name: "%player_name%"
+    suffix: ""
+  sponsor:
+    prefix: "&8[&bSponsor&8] &a"
+    player-name: "%player_name%"
+    suffix: ""
+  elite:
+    prefix: "&8[&5Elite&8] &d"
+    player-name: "%player_name%"
+    suffix: ""
+  svip:
+    prefix: "&8[&eSvip&8] &e"
+    player-name: "%player_name%"
+    suffix: ""
+  vip:
+    prefix: "&8[&eVip&8] &e"
+    player-name: "%player_name%"
+    suffix: ""
+  default:
+    prefix: "&a"
+    player-name: "%player_name%"
+    suffix: ""
+tablist:
+  root:
+    prefix: "&8[&4&lROOT&8] "
+    player-name: "&4&l%player_name%"
+    suffix: ""
+    sort: "1"
+  technik:
+    prefix: "&8[&4&lTechnik&8] &4&l"
+    player-name: "%player_name%"
+    suffix: ""
+    sort: "2"
+  headadmin:
+    prefix: "&8[&4&lHeadAdmin&8] &4&l"
+    player-name: "%player_name%"
+    suffix: ""
+    sort: "3"
+  admin:
+    prefix: "&8[&c&lAdmin&8] &c&l"
+    player-name: "%player_name%"
+    suffix: ""
+    sort: "4"
+  opiekun:
+    prefix: "&8[&c&lOpiekun&8] &c&l"
+    player-name: "%player_name%"
+    suffix: ""
+    sort: "5"
+  jradmin:
+    prefix: "&8[&b&lJrAdmin&8] &b&l"
+    player-name: "%player_name%"
+    suffix: ""
+    sort: "6"
+  architekt:
+    prefix: "&8[&6&lArchitekt&8] &6&l"
+    player-name: "%player_name%"
+    suffix: ""
+    sort: "7"
+  mod:
+    prefix: "&8[&2&lModerator&8] &2&l"
+    player-name: "%player_name%"
+    suffix: ""
+    sort: "8"
+  jrmod:
+    prefix: "&8[&2&lJrMod&8] &2&l"
+    player-name: "%player_name%"
+    suffix: ""
+    sort: "9"
+  chatmod:
+    prefix: "&8[&3&lChatMod&8] &f"
+    player-name: "%player_name%"
+    suffix: ""
+    sort: "a"
+  testbud:
+    prefix: "&8[&7&lTestBud&8] &f"
+    player-name: "%player_name%"
+    suffix: ""
+    sort: "b"
+  rekrut:
+    prefix: "&8[&d&lRekrut&8] &f"
+    player-name: "%player_name%"
+    suffix: ""
+    sort: "c"
+  sponsor:
+    prefix: "&8[&b&lSponsor&8] &f&l"
+    player-name: "%player_name%"
+    suffix: ""
+    sort: "d"
+  elite:
+    prefix: "&8[&5&lElite&8] &f"
+    player-name: "%player_name%"
+    suffix: ""
+    sort: "e"
+  svip:
+    prefix: "&8[&e&lSVIP&8] &f"
+    player-name: "%player_name%"
+    suffix: ""
+    sort: "f"
+  vip:
+    prefix: "&8[&e&lVIP&8] &f"
+    player-name: "%player_name%"
+    suffix: ""
+    sort: "g"
+  default:
+    prefix: "&8[&7Gracz&8] &f"
+    player-name: "%player_name%"
+    suffix: ""
+    sort: "h"

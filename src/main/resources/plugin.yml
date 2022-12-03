@@ -1,0 +1,32 @@
+name: Ignotus
+version: '${project.version}'
+main: me.thekuba.Ignotus
+api-version: 1.17
+prefix: Ignotus
+authors: [ thekuba ]
+website: http://kvba.pl/
+commands:
+  set:
+    description: Set player's media.
+    usage: /set <profil> <nazwa>
+    aliases: ustaw
+    permission: persival.ustaw
+    permission-message: §4» §cNie masz dostępu do tej komendy.
+  setadmin:
+    description: Set player's media by others.
+    usage: /setadmin <profil> <nick> <nazwa>
+    aliases: ustawadmin
+    permission: persival.admin
+    permission-message: §4» §cNie masz dostępu do tej komendy.
+  otchlan:
+    description: Open otchlan if is.
+    usage: /otchlan
+    aliases: pustka
+    permission: persival.otchlan
+    permission-message: §4» §cNie masz dostępu do tej komendy.
+  self:
+    description: Open profile.
+    usage: /self
+    aliases: ja
+    permission: persival.self
+    permission-message: §4» §cNie masz dostępu do tej komendy.
