@@ -6,11 +6,11 @@
 #
 
 database:
-  host: "mysql.titanaxe.com"
-  port: "3306"
-  database: "srv218770"
-  username: "srv218770"
-  password: "zMYfLNvP"
+  host: ""
+  port: ""
+  database: ""
+  username: ""
+  password: ""
 
 messages: # Support colors by '§' only. Sorry :<
   no-permission: "§4» §cNie masz dostępu do tej komendy."
