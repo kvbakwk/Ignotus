@@ -6,7 +6,6 @@ import java.util.List;
 import me.thekuba.Ignotus;
 import me.thekuba.items.ItemPersi;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.boss.BarColor;
@@ -21,105 +20,130 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 
 public class ClearHandler {
-  private int x;
-  
-  private final Ignotus pluginP = (Ignotus) Bukkit.getServer().getPluginManager().getPlugin("Ignotus");
-  
+  private final Ignotus plugin;
   private final FileConfiguration config;
-  
+
+  private int x, y, count, interval, size;
+  private double progress, time;
   private List<ItemStack> items = new ArrayList<>();
+  private List<Integer> array;
   
-  private BossBar bar = Bukkit.createBossBar(ChatColor.translateAlternateColorCodes('&', ""), BarColor.BLUE, BarStyle.SEGMENTED_20, new org.bukkit.boss.BarFlag[0]);
+  private final BossBar bar = Bukkit.createBossBar("", BarColor.BLUE, BarStyle.SEGMENTED_20);
   
-  public ClearHandler(Plugin plugin) {
+  public ClearHandler(Ignotus plugin) {
+    this.plugin = plugin;
     this.config = plugin.getConfig();
     List<World> worlds = Bukkit.getServer().getWorlds();
     aLoop(plugin, worlds);
   }
   
   public void aLoop(final Plugin plugin, final List<World> w) {
+
     this.x = 0;
-    Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
-          public void run() {
-            List<Integer> array = ClearHandler.this.config.getIntegerList("abyss.timer");
-            int interval = ClearHandler.this.config.getInt("abyss.interval");
-            ClearHandler.this.x++;
-            if (ClearHandler.this.x == interval * 20) {
-              ClearHandler.this.items = ClearHandler.this.clearWorlds(w);
-              if (!ClearHandler.this.config.getString("messages.abyss-open").equals(""))
-                Bukkit.broadcastMessage(ClearHandler.this.config.getString("messages.abyss-open").replace("{1}", Integer.toString(ClearHandler.this.items.size()))); 
-              ClearHandler.this.pluginP.applyAbyss(ClearHandler.this.items);
-              for (Player p : Bukkit.getOnlinePlayers()) {
-                if (p.getOpenInventory() != null) {
-                  ItemPersi item = new ItemPersi(p.getOpenInventory().getItem(0));
-                  if (item != null && item.getType() != Material.AIR && item.getStringNBT("inventory") == "abyssPersival")
-                    p.closeInventory(); 
-                } 
-              } 
-            } 
-            if (ClearHandler.this.x == interval * 20 - ClearHandler.this.config.getInt("abyss.bossbar.time") * 20 && !ClearHandler.this.config.getString("abyss.bossbar.before").equals("") && !ClearHandler.this.config.getString("abyss.bossbar.after").equals("")) {
-              for (Player player : Bukkit.getServer().getOnlinePlayers())
-                ClearHandler.this.bar.addPlayer(player); 
-              ClearHandler.this.bar.setVisible(true);
-              Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
-                int y = 0;
+    this.y = 0;
+    this.size = 0;
+    this.count = -1;
+    this.progress = 1.0D;
+    this.time = 1.0D / (config.getInt("abyss.bossbar.time") * 20);
+    this.interval = config.getInt("abyss.interval");
+    this.array = config.getIntegerList("abyss.timer");
 
-                int count = -1;
+    Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, () -> {
 
-                double progress = 1.0D;
+      x++;
 
-                double time = 1.0D / (ClearHandler.this.config.getInt("abyss.bossbar.time") * 20);
+      if (x == interval * 20) {
+        items = clearWorlds(w);
+        size = items.size();
 
-                public void run() {
-                  ClearHandler.this.bar.setProgress(this.progress);
-                  switch (this.count) {
-                    case -1:
-                      ClearHandler.this.bar.setTitle(ClearHandler.this.config.getString("abyss.bossbar.before"));
-                      ClearHandler.this.bar.setColor(BarColor.BLUE);
-                      break;
-                    default:
-                      ClearHandler.this.bar.setTitle(ClearHandler.this.config.getString("abyss.bossbar.after").replace("{1}", Integer.toString(ClearHandler.this.items.size())));
-                      ClearHandler.this.bar.setColor(BarColor.BLUE);
-                      break;
-                  }
-                  this.progress -= this.time;
-                  if (this.progress <= 0.0D) {
-                    this.count++;
-                    this.progress = 1.0D;
-                  }
-                  if (this.y == ClearHandler.this.config.getInt("abyss.bossbar.time") * 40) {
-                    ClearHandler.this.bar.setVisible(false);
-                    this.count = -1;
-                  }
-                  this.y++;
-                }
-              },0L, 1L);
-            } 
-            if (ClearHandler.this.x == interval * 20 - 60 && 
-              !ClearHandler.this.config.getString("messages.abyss-last3msg").equals(""))
-              Bukkit.broadcastMessage(ClearHandler.this.config.getString("messages.abyss-last3msg").replace("{1}", "3")); 
-            if (ClearHandler.this.x == interval * 20 - 40 && 
-              !ClearHandler.this.config.getString("messages.abyss-last3msg").equals(""))
-              Bukkit.broadcastMessage(ClearHandler.this.config.getString("messages.abyss-last3msg").replace("{1}", "2")); 
-            if (ClearHandler.this.x == interval * 20 - 20 && 
-              !ClearHandler.this.config.getString("messages.abyss-last3msg").equals(""))
-              Bukkit.broadcastMessage(ClearHandler.this.config.getString("messages.abyss-last3msg").replace("{1}", "1")); 
-            for (int i = 0; i < (array.toArray()).length; i++) {
-              if (ClearHandler.this.x == interval * 20 - ((Integer)array.get(i)).intValue() * 20 && 
-                !ClearHandler.this.config.getString("messages.abyss-timer").equals(""))
-                Bukkit.broadcastMessage(ClearHandler.this.config.getString("messages.abyss-timer").replace("{1}", Integer.toString(((Integer)array.get(i)).intValue()))); 
-            } 
-            if (ClearHandler.this.x == ClearHandler.this.config.getInt("abyss.lookable") * 20 && 
-              ClearHandler.this.config.getInt("abyss.lookable") > 0)
-              Bukkit.broadcastMessage(ClearHandler.this.config.getString("messages.abyss-isclosing")); 
-            if (ClearHandler.this.x == interval * 20)
-              ClearHandler.this.x = 0; 
+        if (!(config.getString("messages.abyss-open").equals("")))
+          Bukkit.broadcastMessage(config.getString("messages.abyss-open")
+                  .replace("{1}", Integer.toString(size)));
+
+        this.plugin.applyAbyss(items);
+
+        for (Player p : Bukkit.getOnlinePlayers()) {
+          if (p.getOpenInventory() != null) {
+            ItemPersi item = new ItemPersi(p.getOpenInventory().getItem(0));
+            if (item != null && item.getType() != Material.AIR && item.getStringNBT("inventory").equals("abyssPersival"))
+              p.closeInventory();
           }
-        },0L, 1L);
+        }
+
+        x = 0;
+      }
+
+      if (x == interval * 20 - config.getInt("abyss.bossbar.time") * 20
+              && !config.getString("abyss.bossbar.before").equals("")
+              && !config.getString("abyss.bossbar.after").equals("")) {
+        for (Player player : Bukkit.getServer().getOnlinePlayers())
+          bar.addPlayer(player);
+
+        for (Player player : bar.getPlayers())
+          System.out.println(player.getName());
+
+        bar.setProgress(1);
+        bar.setVisible(true);
+
+        count = -1;
+        y = 0;
+      }
+
+      if((x >= interval * 20 - config.getInt("abyss.bossbar.time") * 20 || y > 0)
+              && !config.getString("abyss.bossbar.before").equals("")
+              && !config.getString("abyss.bossbar.after").equals("")) {
+        bar.setProgress(progress);
+
+        if(count == -1)
+            bar.setTitle(config.getString("abyss.bossbar.before"));
+        else
+            bar.setTitle(config.getString("abyss.bossbar.after")
+                    .replace("{1}", Integer.toString(size)));
+        bar.setColor(BarColor.BLUE);
+
+        progress -= time;
+
+        if (progress <= 0.0D) {
+          count++;
+          progress = 1.0D;
+        }
+
+        y++;
+
+        if (y == config.getInt("abyss.bossbar.time") * 40) {
+          bar.setVisible(false);
+          count = -1;
+          y = 0;
+        }
+      }
+
+      if (x == interval * 20 - 60
+              && !config.getString("messages.abyss-last3msg").equals(""))
+        Bukkit.broadcastMessage(config.getString("messages.abyss-last3msg").replace("{1}", "3"));
+      if (x == interval * 20 - 40
+              && !config.getString("messages.abyss-last3msg").equals(""))
+        Bukkit.broadcastMessage(config.getString("messages.abyss-last3msg").replace("{1}", "2"));
+      if (x == interval * 20 - 20
+              && !config.getString("messages.abyss-last3msg").equals(""))
+        Bukkit.broadcastMessage(config.getString("messages.abyss-last3msg").replace("{1}", "1"));
+
+      for (int i = 0; i < (array.toArray()).length; i++) {
+        if (x == interval * 20 - array.get(i) * 20 &&
+          !config.getString("messages.abyss-timer").equals(""))
+          Bukkit.broadcastMessage(config.getString("messages.abyss-timer").replace("{1}", Integer.toString(array.get(i))));
+      }
+
+      if (x == config.getInt("abyss.lookable") * 20 && config.getInt("abyss.lookable") > 0)
+        Bukkit.broadcastMessage(config.getString("messages.abyss-isclosing"));
+
+
+    },0L, 1L);
   }
   
   private List<ItemStack> clearWorlds(List<World> worlds) {
+
     ArrayList<ItemStack> itemAll = new ArrayList<>();
+
     for (World world : worlds) {
       for (Entity entity : world.getEntities()) {
         if (entity.getType() == EntityType.DROPPED_ITEM) {
@@ -128,7 +152,8 @@ public class ClearHandler {
           entity.remove();
         } 
       } 
-    } 
+    }
+
     return itemAll;
   }
   

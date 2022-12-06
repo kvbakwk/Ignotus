@@ -13,10 +13,8 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 public class GroupsManager {
   private final Ignotus plugin;
-  
-  private FileConfiguration groupsConfig = null;
-  
-  private File configFile = null;
+  private FileConfiguration groupsConfig;
+  private File configFile;
   
   public GroupsManager(Ignotus plugin) {
     this.plugin = plugin;
@@ -25,24 +23,28 @@ public class GroupsManager {
   
   public void reloadConfig() {
     if (this.configFile == null)
-      this.configFile = new File(this.plugin.getDataFolder(), "groups.yml"); 
-    this.groupsConfig = (FileConfiguration)YamlConfiguration.loadConfiguration(this.configFile);
+      this.configFile = new File(this.plugin.getDataFolder(), "groups.yml");
+
+    this.groupsConfig = YamlConfiguration.loadConfiguration(this.configFile);
     InputStream defaultStream = this.plugin.getResource("groups.yml");
+
     if (defaultStream != null) {
       YamlConfiguration defaultConfig = YamlConfiguration.loadConfiguration(new InputStreamReader(defaultStream));
-      this.groupsConfig.setDefaults((Configuration)defaultConfig);
+      this.groupsConfig.setDefaults(defaultConfig);
     } 
   }
   
   public FileConfiguration getConfig() {
     if (this.groupsConfig == null)
-      reloadConfig(); 
+      reloadConfig();
+
     return this.groupsConfig;
   }
   
   public void saveConfig() {
     if (this.groupsConfig == null || this.configFile == null)
-      return; 
+      return;
+
     try {
       getConfig().save(this.configFile);
     } catch (IOException e) {
@@ -52,7 +54,8 @@ public class GroupsManager {
   
   public void saveDefaultConfig() {
     if (this.configFile == null)
-      this.configFile = new File(this.plugin.getDataFolder(), "groups.yml"); 
+      this.configFile = new File(this.plugin.getDataFolder(), "groups.yml");
+
     if (!this.configFile.exists())
       this.plugin.saveResource("groups.yml", false); 
   }

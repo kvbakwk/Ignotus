@@ -17,21 +17,20 @@ import org.bukkit.util.StringUtil;
 import org.jetbrains.annotations.NotNull;
 
 public class Setadmin implements CommandExecutor, TabCompleter {
+  private final Ignotus plugin = (Ignotus) Bukkit.getServer().getPluginManager().getPlugin("Ignotus");
+  private final FileConfiguration config = this.plugin.getConfig();
+  private final FileConfiguration playersConfig = this.plugin.playersFile.getConfig();
+
   private static final String[] COMMANDS = new String[] { "Instagram", "YouTube", "Twitch", "Discord", "Snapchat", "Status" };
   
-  @NotNull
-  private final Ignotus plugin = (Ignotus) Bukkit.getServer().getPluginManager().getPlugin("Ignotus");
-  
-  private final FileConfiguration config = this.plugin.getConfig();
-  
-  private final FileConfiguration playersConfig = this.plugin.playersFile.getConfig();
-  
   public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {
-    String argument0, argument1;
-    StringBuilder argument2B;
+
     int i;
-    String argument2;
+    String argument0, argument1, argument2;
+    StringBuilder argument2B;
+
     switch (args.length) {
+
       default:
         argument0 = args[0].toLowerCase();
         argument1 = args[1];
@@ -44,36 +43,44 @@ public class Setadmin implements CommandExecutor, TabCompleter {
           } 
         } 
         argument2 = argument2B.toString();
+
         if (argument0.equals("instagram") || argument0.equals("youtube") || argument0.equals("twitch") || argument0.equals("discord") || argument0.equals("snapchat") || argument0.equals("status")) {
           sender.sendMessage(this.config.getString("messages.success-admin")
-              .replace("{0}", args[0].toLowerCase() + "a")
-              .replace("{1}", argument1).replace("{2}", argument2));
+                  .replace("{0}", args[0].toLowerCase() + "a")
+                  .replace("{1}", argument1)
+                  .replace("{2}", argument2));
           this.playersConfig.set("players." + Bukkit.getPlayer(argument1).getUniqueId() + "." + argument0, argument2);
           this.plugin.playersFile.saveConfig();
-        } else {
+        } else
           sender.sendMessage(this.config.getString("messages.unknown"));
-        } 
         return true;
+
       case 2:
         sender.sendMessage(this.config.getString("messages.usage-admin")
             .replace("{0}", args[0])
             .replace("{1}", args[1]));
         return true;
+
       case 1:
-        sender.sendMessage(this.config.getString("messages.usage-admin").replace("{0}", args[0]).replace("{1}", "<nick>"));
+        sender.sendMessage(this.config.getString("messages.usage-admin")
+                .replace("{0}", args[0]).replace("{1}", "<nick>"));
         return true;
+
       case 0:
         break;
     } 
-    sender.sendMessage(this.config.getString("messages.usage-admin").replace("{0}", "<media>").replace("{1}", "<nick>"));
+    sender.sendMessage(this.config.getString("messages.usage-admin")
+            .replace("{0}", "<media>").replace("{1}", "<nick>"));
     return true;
   }
   
   public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, String[] args) {
+
     List<String> completions = new ArrayList<>();
-    if (args.length == 1) {
+
+    if (args.length == 1)
       StringUtil.copyPartialMatches(args[0], Arrays.asList(COMMANDS), completions);
-    } else if (args.length == 2) {
+    else if (args.length == 2) {
       List<String> players = new ArrayList<>();
       for (OfflinePlayer playerOffline : Bukkit.getServer().getOfflinePlayers())
         players.add(playerOffline.getName()); 
@@ -84,7 +91,8 @@ public class Setadmin implements CommandExecutor, TabCompleter {
       if (tab == null)
         tab = ""; 
       StringUtil.copyPartialMatches(args[2], Collections.singletonList(tab), completions);
-    } 
+    }
+
     return completions;
   }
 }

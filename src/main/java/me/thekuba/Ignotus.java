@@ -25,21 +25,13 @@ import java.util.UUID;
 
 public final class Ignotus extends JavaPlugin implements Listener {
 
-    public ClearHandler clear = null;
-
+    public ClearHandler clear;
     public PlayersManager playersFile;
-
     public GroupsManager groupsFile;
-
     public DamageHandler pvp;
-
+    public static Permission perms;
     public List<Inventory> abyssInv = new ArrayList<>();
 
-    public static Permission perms = null;
-
-    private static final String prefixInfo = "[Persival] ";
-
-    private static final String prefixWarn = "[Persival]   ";
     @Override
     public void onEnable() {
         this.playersFile = new PlayersManager(this);
@@ -70,7 +62,7 @@ public final class Ignotus extends JavaPlugin implements Listener {
         new PlayerJoinHandler(this);
         this.pvp = new DamageHandler(this);
         if (getConfig().getBoolean("abyss.enable")) {
-            this.clear = new ClearHandler((Plugin)this);
+            this.clear = new ClearHandler(this);
             List<ItemStack> items = this.clear.getItems();
             applyAbyss(items);
         }
