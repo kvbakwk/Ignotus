@@ -19,26 +19,18 @@ import org.bukkit.potion.PotionData;
 import org.bukkit.potion.PotionType;
 
 public class ItemPersi extends ItemStack {
-  private Material material;
-  
-  private int amount;
   
   private boolean isNBT = false;
-  
   private int amountNBT = 0;
   
   private final String NBTTitle = "PersiItem";
   
   public ItemPersi(Material material) {
     super(material);
-    this.material = material;
-    this.amount = 1;
   }
   
   public ItemPersi(Material material, int amount) {
     super(material, amount);
-    this.material = material;
-    this.amount = amount;
   }
   
   public ItemPersi(ItemStack item) {
@@ -156,13 +148,13 @@ public class ItemPersi extends ItemStack {
     OfflinePlayer playerO = Bukkit.getOfflinePlayer(player.getUniqueId());
     SkullMeta itemS = (SkullMeta)getItemMeta();
     itemS.setOwningPlayer(playerO);
-    setItemMeta((ItemMeta)itemS);
+    setItemMeta(itemS);
   }
   
   public void setPotion(PotionType type) {
     PotionMeta itemP = (PotionMeta)getItemMeta();
     itemP.setBasePotionData(new PotionData(type));
-    setItemMeta((ItemMeta)itemP);
+    setItemMeta(itemP);
   }
   
   public void addFlag(ItemFlag flag) {

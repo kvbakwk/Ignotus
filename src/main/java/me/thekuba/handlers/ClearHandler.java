@@ -79,9 +79,6 @@ public class ClearHandler {
         for (Player player : Bukkit.getServer().getOnlinePlayers())
           bar.addPlayer(player);
 
-        for (Player player : bar.getPlayers())
-          System.out.println(player.getName());
-
         bar.setProgress(1);
         bar.setVisible(true);
 
@@ -156,11 +153,18 @@ public class ClearHandler {
 
     return itemAll;
   }
-  
+
+
+
+  public void addPlayerToBar(Player player) {
+    this.bar.addPlayer(player);
+  }
+
+
+
   public int getTime() {
     return this.config.getInt("abyss.interval") - this.x / 20;
   }
-  
   public List<ItemStack> getItems() {
     return this.items;
   }

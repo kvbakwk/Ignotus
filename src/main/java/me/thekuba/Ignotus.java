@@ -9,11 +9,9 @@ import me.thekuba.inventories.AbyssInventory;
 import me.thekuba.items.ItemPersi;
 import me.thekuba.placeholders.PersivalExpansion;
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 import me.thekuba.files.PlayersManager;
@@ -21,7 +19,6 @@ import me.thekuba.files.GroupsManager;
 import net.milkbowl.vault.permission.Permission;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 public final class Ignotus extends JavaPlugin implements Listener {
 
@@ -37,35 +34,42 @@ public final class Ignotus extends JavaPlugin implements Listener {
         this.playersFile = new PlayersManager(this);
         this.groupsFile = new GroupsManager(this);
         saveDefaultConfig();
+
         if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") == null) {
             toConsoleWarn("You don't have PlaceholderAPI! This plugin is required.");
-            Bukkit.getPluginManager().disablePlugin((Plugin) this);
-        }
-        if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null)
+            Bukkit.getPluginManager().disablePlugin(this);
+        } else {
             (new PersivalExpansion()).register();
+        }
         if (Bukkit.getPluginManager().getPlugin("NBTAPI") == null) {
             toConsoleWarn("You don't have NBTAPI! This plugin is required.");
-            Bukkit.getPluginManager().disablePlugin((Plugin)this);
+            Bukkit.getPluginManager().disablePlugin(this);
         }
         if (Bukkit.getPluginManager().getPlugin("Vault") == null) {
             toConsoleWarn("You don't have Vault! This plugin is required.");
-            Bukkit.getPluginManager().disablePlugin((Plugin)this);
+            Bukkit.getPluginManager().disablePlugin(this);
         }
+
         setupPermissions();
+
         getCommand("set").setExecutor(new Set());
         getCommand("setadmin").setExecutor(new Setadmin());
         getCommand("otchlan").setExecutor(new Otchlan());
         getCommand("self").setExecutor(new Self());
+
         new PlayerClickHandler(this);
         new ClickInvHandler(this);
         new CloseInvHandler(this);
         new PlayerJoinHandler(this);
+
         this.pvp = new DamageHandler(this);
+
         if (getConfig().getBoolean("abyss.enable")) {
             this.clear = new ClearHandler(this);
             List<ItemStack> items = this.clear.getItems();
             applyAbyss(items);
         }
+
         toConsoleInfo("The Persival plugin has been successfully loaded.");
     }
 
@@ -75,16 +79,16 @@ public final class Ignotus extends JavaPlugin implements Listener {
     }
 
     public static void toConsoleInfo(String msg) {
-        Bukkit.getLogger().info("[Persival] " + msg);
+        Bukkit.getLogger().info("[Ignotus] " + msg);
     }
 
     public static void toConsoleWarn(String msg) {
-        Bukkit.getLogger().warning("[Persival]   " + msg);
+        Bukkit.getLogger().warning("[Ignotus]   " + msg);
     }
 
     private boolean setupPermissions() {
         RegisteredServiceProvider<Permission> rsp = getServer().getServicesManager().getRegistration(Permission.class);
-        perms = (Permission)rsp.getProvider();
+        perms = rsp.getProvider();
         return (perms != null);
     }
 
@@ -111,7 +115,7 @@ public final class Ignotus extends JavaPlugin implements Listener {
                     ItemPersi itemTemp = new ItemPersi(invTemp.inv.getItem(0));
                     itemTemp.setIntNBT("abyssValue", i);
                     this.abyssInv.add(invTemp.inv);
-                } else if (i == itemsSize / 36 && i != 0) {
+                } else if (i == itemsSize / 36) {
                     AbyssInventory invTemp = new AbyssInventory(itemsOne, 1, i);
                     ItemPersi itemTemp = new ItemPersi(invTemp.inv.getItem(0));
                     itemTemp.setIntNBT("abyssValue", i);

@@ -19,15 +19,12 @@ import me.thekuba.Ignotus;
 import me.thekuba.items.ItemPersi;
 
 public class InteractInventory {
-  private static Inventory inv;
-  
-  private static Player player1;
-  
-  private static Player player2;
-  
-  static Plugin plugin = (Plugin) Ignotus.getPlugin(Ignotus.class);
-  
+  static Plugin plugin = Ignotus.getPlugin(Ignotus.class);
   static FileConfiguration config = plugin.getConfig();
+
+  private static Inventory inv;
+  private static Player player1;
+  private static Player player2;
   
   public static void openInv(Player p1, Player p2) {
     String title = ChatColor.translateAlternateColorCodes('&', PlaceholderAPI.setPlaceholders(p2, config.getString("items.title")));
@@ -36,11 +33,14 @@ public class InteractInventory {
       titleB.append(" "); 
     titleB.append(title);
     title = titleB.toString();
+
     inv = Bukkit.createInventory(null, 54, title);
     player1 = p1;
     player2 = p2;
+
     ItemStack[] itemsInv = new ItemStack[54];
     List<ItemStack> itemsCustom = getItems();
+
     ItemStack profil = itemsCustom.get(0);
     ItemStack item0 = itemsCustom.get(1);
     ItemStack item1 = itemsCustom.get(2);
@@ -66,20 +66,22 @@ public class InteractInventory {
     itemsInv[24] = itemChestplate;
     itemsInv[33] = itemLeggings;
     itemsInv[42] = itemBoots;
+
     int j;
     for (j = 0; j < 54; j++) {
       if (itemsInv[j] == null)
         itemsInv[j] = blankBlack; 
     } 
     for (j = 0; j < 54; j++)
-      inv.setItem(j, itemsInv[j]); 
+      inv.setItem(j, itemsInv[j]);
+
     p1.openInventory(inv);
   }
   
   private static List<ItemStack> getItems() {
     ItemPersi profil = new ItemPersi(Material.PLAYER_HEAD, 1);
     profil.setSkull(player2);
-    profil.setStringNBT("persiId", "blank");
+    profil.setStringNBT("persiId", "profile");
     profil.setStringNBT("blocked", "yes");
     profil.setStringNBT("inventory", "interPersival");
     profil.setStringNBT("p1", player1.getUniqueId().toString());
@@ -108,8 +110,8 @@ public class InteractInventory {
     item2.setName(config.getString("items.item2.name"), true, true, player2);
     item2.setLore(config.getStringList("items.item2.lore"), true, true, player2);
     ItemPersi item3 = new ItemPersi(Material.CONDUIT, 1);
-    item3.setStringNBT("persiId", "blank");
-    item3.setStringNBT("persivalConduit", "yes");
+    item3.setStringNBT("persiId", "conduit");
+    item3.setStringNBT("isConduit", "yes");
     item3.setStringNBT("blocked", "yes");
     item3.setStringNBT("p1", player1.getUniqueId().toString());
     item3.setStringNBT("p2", player2.getUniqueId().toString());
@@ -191,6 +193,7 @@ public class InteractInventory {
     nbti.applyNBT(itemBoots);
     ItemStack blankBlack = new ItemStack(Material.BLACK_STAINED_GLASS_PANE);
     nbti = new NBTItem(blankBlack);
+    nbti.setString("inventory", "interactPersival");
     nbti.setString("persiId", "blank");
     nbti.setString("blocked", "yes");
     nbti.setString("p1", player1.getUniqueId().toString());

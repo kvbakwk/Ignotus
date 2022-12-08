@@ -15,29 +15,29 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.plugin.Plugin;
 
 public class CloseInvHandler implements Listener {
   private final Ignotus plugin = (Ignotus) Bukkit.getServer().getPluginManager().getPlugin("Ignotus");
-  
   private final FileConfiguration config = this.plugin.getConfig();
   
   private final List<String> lore = this.config.getStringList("items.gift.lore-item");
   
   public CloseInvHandler(Ignotus plugin) {
-    Bukkit.getPluginManager().registerEvents(this, (Plugin)plugin);
+    Bukkit.getPluginManager().registerEvents(this, plugin);
   }
   
   @EventHandler
   public void onCloseInventory(InventoryCloseEvent event) {
-    if (event.getInventory().getSize() > 9 && 
-      event.getInventory().getItem(10) != null && 
-      event.getInventory().getItem(10).getType() != Material.AIR && (
-      new NBTItem(event.getInventory().getItem(10))).getString("inventory") == "interPersival" && 
-      event.getInventory().getItem(37) != null && 
-      event.getInventory().getItem(37).getType() != Material.AIR && (
-      new NBTItem(event.getInventory().getItem(37))).getString("persiId") == "give") {
-      Player player1 = Bukkit.getPlayer(UUID.fromString((new NBTItem(event.getInventory().getItem(10))).getString("p1")));
+
+    if (event.getInventory().getSize() > 9
+            && event.getInventory().getItem(10) != null
+            && event.getInventory().getItem(10).getType() != Material.AIR
+            && (new ItemPersi(event.getInventory().getItem(10))).getStringNBT("inventory").equals("interPersival")
+            && event.getInventory().getItem(37) != null
+            && event.getInventory().getItem(37).getType() != Material.AIR
+            && (new ItemPersi(event.getInventory().getItem(37))).getStringNBT("persiId").equals("give")) {
+
+      Player player = Bukkit.getPlayer(UUID.fromString((new ItemPersi(event.getInventory().getItem(10))).getStringNBT("p1")));
       ItemPersi item = new ItemPersi(event.getInventory().getItem(37));
       if (item.getStringNBT("hasFlagPersival") == "no")
         item.removeFlag(ItemFlag.HIDE_ATTRIBUTES); 
@@ -57,7 +57,7 @@ public class CloseInvHandler implements Listener {
       item.removeNBT("blocked");
       item.removeNBT("persiId");
       item.removeNBT("PersiItem");
-      player1.getInventory().addItem(new ItemStack[] { item });
+      player.getInventory().addItem(new ItemStack[] { item });
     } 
   }
 }

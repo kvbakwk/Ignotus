@@ -15,9 +15,9 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionType;
 
 public class AbyssInventory {
+  private static final FileConfiguration config = (Ignotus.getPlugin(Ignotus.class)).getConfig();
+
   public Inventory inv;
-  
-  private static final FileConfiguration config = ((Ignotus)Ignotus.getPlugin(Ignotus.class)).getConfig();
   
   public AbyssInventory(List<ItemStack> items, int option, int page) {
     newInv(items, option, page);
@@ -25,12 +25,15 @@ public class AbyssInventory {
   
   public void newInv(List<ItemStack> items, int option, int page) {
     String title = ChatColor.translateAlternateColorCodes('&', config.getString("abyss.title"));
+
     this.inv = Bukkit.createInventory(null, 54, title);
     ItemStack[] itemsInv = new ItemStack[54];
+
     List<ItemStack> itemsCustom = getItems(page);
     ItemStack arrowRight = itemsCustom.get(0);
     ItemStack arrowLeft = itemsCustom.get(1);
     ItemStack blank = itemsCustom.get(2);
+
     for (int i = 0; i < 54; i++) {
       if ((i < 9 || i > 44) && itemsInv[i] == null) {
         itemsInv[i] = blank;
@@ -38,7 +41,8 @@ public class AbyssInventory {
         itemsInv[i] = null;
       } 
       this.inv.setItem(i, itemsInv[i]);
-    } 
+    }
+
     List<ItemStack> itemsAll = items;
     if (itemsAll.size() == 0)
       return; 
@@ -70,6 +74,7 @@ public class AbyssInventory {
     arrowRight.setPotion(PotionType.LUCK);
     arrowRight.setStringNBT("persiId", "arrowRight");
     arrowRight.setStringNBT("blocked", "yes");
+
     ItemPersi arrowLeft = new ItemPersi(Material.TIPPED_ARROW);
     arrowLeft.setName(config.getString("abyss.arrow-left.name"), true, false, null);
     arrowLeft.setLore(config.getStringList("abyss.arrow-left.lore"), true, false, null);
@@ -77,9 +82,11 @@ public class AbyssInventory {
     arrowLeft.setPotion(PotionType.STRENGTH);
     arrowLeft.setStringNBT("persiId", "arrowLeft");
     arrowLeft.setStringNBT("blocked", "yes");
+
     ItemPersi blank = ItemPersi.Blank(Material.valueOf(config.getString("items.blank.material").toUpperCase()));
     blank.setStringNBT("inventory", "abyssPersival");
     blank.setIntNBT("pagePersival", page);
+
     List<ItemStack> items = new ArrayList<>();
     items.add(arrowRight);
     items.add(arrowLeft);
