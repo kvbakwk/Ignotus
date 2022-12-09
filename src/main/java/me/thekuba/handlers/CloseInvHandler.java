@@ -1,6 +1,5 @@
 package me.thekuba.handlers;
 
-import de.tr7zw.nbtapi.NBTItem;
 import java.util.List;
 import java.util.UUID;
 
@@ -20,44 +19,55 @@ public class CloseInvHandler implements Listener {
   private final Ignotus plugin = (Ignotus) Bukkit.getServer().getPluginManager().getPlugin("Ignotus");
   private final FileConfiguration config = this.plugin.getConfig();
   
-  private final List<String> lore = this.config.getStringList("items.gift.lore-item");
-  
   public CloseInvHandler(Ignotus plugin) {
     Bukkit.getPluginManager().registerEvents(this, plugin);
   }
   
   @EventHandler
-  public void onCloseInventory(InventoryCloseEvent event) {
+  public void onCloseInventory(InventoryCloseEvent e) {
+    if(!checkItem(e.getInventory().getItem(0)))
+      return;
+    if(!checkItem(e.getInventory().getItem(37)))
+      return;
 
-    if (event.getInventory().getSize() > 9
-            && event.getInventory().getItem(10) != null
-            && event.getInventory().getItem(10).getType() != Material.AIR
-            && (new ItemPersi(event.getInventory().getItem(10))).getStringNBT("inventory").equals("interPersival")
-            && event.getInventory().getItem(37) != null
-            && event.getInventory().getItem(37).getType() != Material.AIR
-            && (new ItemPersi(event.getInventory().getItem(37))).getStringNBT("persiId").equals("give")) {
+    if ((new ItemPersi(e.getInventory().getItem(0))).getStringNBT("inventory").equals("interactPersival")
+            && (new ItemPersi(e.getInventory().getItem(37))).getStringNBT("isConduit").equals("no")) {
 
-      Player player = Bukkit.getPlayer(UUID.fromString((new ItemPersi(event.getInventory().getItem(10))).getStringNBT("p1")));
-      ItemPersi item = new ItemPersi(event.getInventory().getItem(37));
+      Player player = Bukkit.getPlayer(UUID.fromString((new ItemPersi(e.getInventory().getItem(0))).getStringNBT("p1")));
+      ItemPersi item = new ItemPersi(e.getInventory().getItem(37));
+
       if (item.getStringNBT("hasFlagPersival") == "no")
         item.removeFlag(ItemFlag.HIDE_ATTRIBUTES); 
       if (item.getStringNBT("hasLorePersival") == "yes") {
         List<String> loreItem = item.getLore();
-        int loreItemSize = loreItem.size();
-        for (int i = loreItemSize - 1; i > loreItemSize - this.lore.size(); i--)
-          loreItem.remove(i); 
+        for (String ignored : this.config.getStringList("items.gift.lore-item"))
+          loreItem.remove(loreItem.size() - 1);
         item.setLore(loreItem, false, false, null);
       } else {
         item.setLore(null, false, false, null);
-      } 
-      item.removeNBT("hasLorePersival");
-      item.removeNBT("hasFlagPersival");
-      item.removeNBT("p1");
-      item.removeNBT("p2");
-      item.removeNBT("blocked");
+      }
       item.removeNBT("persiId");
+      item.removeNBT("isConduit");
       item.removeNBT("PersiItem");
-      player.getInventory().addItem(new ItemStack[] { item });
+      item.removeNBT("hasFlagPersival");
+      item.removeNBT("hasLorePersival");
+      if(player.getInventory().firstEmpty() == -1)
+        player.getWorld().dropItem(player.getLocation(), item);
+      else
+        player.getInventory().addItem(item);
     } 
+  }
+
+
+
+
+  private boolean checkItem(ItemStack item) {
+    if(item == null)
+      return false;
+    if(item.getType() == Material.AIR)
+      return false;
+    if(new ItemPersi(item).getStringNBT("inventory") == null)
+      return false;
+    return true;
   }
 }
