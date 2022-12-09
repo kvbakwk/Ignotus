@@ -112,4 +112,5 @@ buildNumber.properties
 # Common working directory
 run/
 
-*.gitignore
+.gitignore
+.gitattributes
