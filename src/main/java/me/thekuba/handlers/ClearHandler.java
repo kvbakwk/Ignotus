@@ -47,6 +47,7 @@ public class ClearHandler {
     this.time = 1.0D / (config.getInt("abyss.bossbar.time") * 20);
     this.interval = config.getInt("abyss.interval");
     this.array = config.getIntegerList("abyss.timer");
+    this.bar.setVisible(false);
 
     Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, () -> {
 
@@ -157,7 +158,7 @@ public class ClearHandler {
 
 
   public void addPlayerToBar(Player player) {
-    this.bar.addPlayer(player);
+      this.bar.addPlayer(player);
   }
 
 

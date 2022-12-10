@@ -33,14 +33,31 @@ public class ClickInvHandler implements Listener {
         return;
 
       Player player = (Player) e.getWhoClicked();
-      Player player2 = Bukkit.getPlayer(UUID.fromString(new ItemPersi(e.getWhoClicked().getOpenInventory().getItem(0)).getStringNBT("p2")));
 
       if(new ItemPersi(e.getWhoClicked().getOpenInventory().getItem(0)).getStringNBT("inventory") == "abyssPersival") {
-        e.setCancelled(true);
+        ItemPersi item = new ItemPersi(e.getCurrentItem());
+
+        switch (item.getStringNBT("persiId")) {
+          case "arrowLeft":
+            e.setCancelled(true);
+            e.getWhoClicked().openInventory(plugin.abyssInv.get(new ItemPersi(e.getWhoClicked().getOpenInventory().getItem(0)).getIntNBT("pagePersival") - 1));
+            return;
+          case "arrowRight":
+            e.setCancelled(true);
+            e.getWhoClicked().openInventory(plugin.abyssInv.get(new ItemPersi(e.getWhoClicked().getOpenInventory().getItem(0)).getIntNBT("pagePersival") + 1));
+            return;
+          case "blank":
+            e.setCancelled(true);
+            return;
+          default:
+            if(e.getWhoClicked().getInventory().equals(e.getClickedInventory()))
+              e.setCancelled(true);
+        }
       }
 
       else if(new ItemPersi(e.getWhoClicked().getOpenInventory().getItem(0)).getStringNBT("inventory") == "interactPersival") {
         ItemPersi item = new ItemPersi(e.getCurrentItem());
+        Player player2 = Bukkit.getPlayer(UUID.fromString(new ItemPersi(e.getWhoClicked().getOpenInventory().getItem(0)).getStringNBT("p2")));
 
         switch (item.getStringNBT("persiId")) {
           case "profile":

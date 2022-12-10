@@ -49,11 +49,11 @@ public class AbyssInventory {
     int amountTimes = itemsAll.size();
     for (int j = 0; j < 36 - amountTimes; j++)
       itemsAll.add(new ItemStack(Material.AIR)); 
-    int licznik = 0;
+    int counter = 0;
     for (int k = 0; k < 54; k++) {
       if (this.inv.getItem(k) == null) {
-        this.inv.setItem(k, itemsAll.get(licznik));
-        licznik++;
+        this.inv.setItem(k, itemsAll.get(counter));
+        counter++;
       } 
       if (option == 0) {
         this.inv.setItem(51, arrowRight);

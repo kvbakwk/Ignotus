@@ -5,6 +5,11 @@ api-version: 1.17
 prefix: Ignotus
 authors: [ thekuba ]
 website: http://kvba.pl/
+depend:
+  - PlaceholderAPI
+  - NBTAPI
+  - Vault
+  - SuperVanish
 commands:
   set:
     description: Set player's media.
