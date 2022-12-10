@@ -7,7 +7,6 @@ import java.io.InputStreamReader;
 import java.util.logging.Level;
 
 import me.thekuba.Ignotus;
-import org.bukkit.configuration.Configuration;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -20,7 +19,7 @@ public class GroupsManager {
     this.plugin = plugin;
     saveDefaultConfig();
   }
-  
+
   public void reloadConfig() {
     if (this.configFile == null)
       this.configFile = new File(this.plugin.getDataFolder(), "groups.yml");
@@ -33,14 +32,12 @@ public class GroupsManager {
       this.groupsConfig.setDefaults(defaultConfig);
     } 
   }
-  
   public FileConfiguration getConfig() {
     if (this.groupsConfig == null)
       reloadConfig();
 
     return this.groupsConfig;
   }
-  
   public void saveConfig() {
     if (this.groupsConfig == null || this.configFile == null)
       return;
@@ -51,7 +48,6 @@ public class GroupsManager {
       this.plugin.getLogger().log(Level.SEVERE, "Nie można zapisać pliku " + this.configFile, e);
     } 
   }
-  
   public void saveDefaultConfig() {
     if (this.configFile == null)
       this.configFile = new File(this.plugin.getDataFolder(), "groups.yml");

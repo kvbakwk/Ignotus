@@ -22,6 +22,7 @@ public class Self implements CommandExecutor, TabCompleter {
 
   private static final String[] COMMANDS = new String[0];
 
+
   public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
     if (!(sender instanceof Player))
       return true; 
@@ -40,4 +41,5 @@ public class Self implements CommandExecutor, TabCompleter {
     StringUtil.copyPartialMatches(args[0], Arrays.asList(COMMANDS), completions);
     return completions;
   }
+
 }

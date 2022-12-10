@@ -21,6 +21,7 @@ public class Otchlan implements CommandExecutor, TabCompleter {
 
   private static final String[] COMMANDS = new String[0];
 
+
   public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
     if (!(sender instanceof Player))
       return true; 
@@ -41,4 +42,5 @@ public class Otchlan implements CommandExecutor, TabCompleter {
     StringUtil.copyPartialMatches(args[0], Arrays.asList(COMMANDS), completions);
     return completions;
   }
+
 }

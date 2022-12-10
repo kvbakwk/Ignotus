@@ -22,7 +22,7 @@ public class Setadmin implements CommandExecutor, TabCompleter {
   private final FileConfiguration playersConfig = this.plugin.playersFile.getConfig();
 
   private static final String[] COMMANDS = new String[] { "Instagram", "YouTube", "Twitch", "Discord", "Snapchat", "Status" };
-  
+
   public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {
 
     int i;
@@ -95,4 +95,5 @@ public class Setadmin implements CommandExecutor, TabCompleter {
 
     return completions;
   }
+
 }

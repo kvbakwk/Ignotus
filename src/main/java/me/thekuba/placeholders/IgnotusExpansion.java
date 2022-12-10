@@ -7,28 +7,24 @@ import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.jetbrains.annotations.NotNull;
 
-public class PersivalExpansion extends PlaceholderExpansion {
+public class IgnotusExpansion extends PlaceholderExpansion {
   private Ignotus plugin;
   
   @NotNull
   public String getAuthor() {
     return "thekuba";
   }
-  
   @NotNull
   public String getIdentifier() {
     return "ignotus";
   }
-  
   @NotNull
   public String getVersion() {
     return "1.0.0";
   }
-  
   public String getRequiredPlugin() {
     return "Ignotus";
   }
-  
   public boolean canRegister() {
     return ((this.plugin = (Ignotus) Bukkit.getPluginManager().getPlugin(getRequiredPlugin())) != null);
   }

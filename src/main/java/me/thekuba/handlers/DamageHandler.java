@@ -14,14 +14,16 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 
 public class DamageHandler implements Listener {
-  private final Ignotus plugin = (Ignotus) Bukkit.getServer().getPluginManager().getPlugin("Ignotus");
-  private final FileConfiguration config = this.plugin.getConfig();
+  private final FileConfiguration config;
 
   private Map<Player, Long> delay = new HashMap<>();
+
   
   public DamageHandler(Ignotus plugin) {
+    this.config = plugin.getConfig();
     Bukkit.getPluginManager().registerEvents(this, plugin);
   }
+
   
   @EventHandler
   public void onDamage(EntityDamageEvent event) {
@@ -29,24 +31,22 @@ public class DamageHandler implements Listener {
       return; 
     Player player = Bukkit.getServer().getPlayer(event.getEntity().getUniqueId());
     if (!this.delay.containsKey(player)) {
-      this.delay.put(player, Long.valueOf(System.currentTimeMillis() + (this.config.getInt("interact.antypvptime") * 1000)));
+      this.delay.put(player, System.currentTimeMillis() + (this.config.getInt("interact.antypvptime") * 1000L));
     } else {
-      this.delay.replace(player, Long.valueOf(System.currentTimeMillis() + (this.config.getInt("interact.antypvptime") * 1000)));
+      this.delay.replace(player, System.currentTimeMillis() + (this.config.getInt("interact.antypvptime") * 1000L));
     } 
   }
-  
   @EventHandler
   public void onDamaged(EntityDamageByEntityEvent event) {
     if (!event.getEntityType().equals(EntityType.PLAYER))
       return; 
     Player player = Bukkit.getServer().getPlayer(event.getEntity().getUniqueId());
     if (!this.delay.containsKey(player)) {
-      this.delay.put(player, Long.valueOf(System.currentTimeMillis() + (this.config.getInt("interact.antypvptime") * 1000)));
+      this.delay.put(player, System.currentTimeMillis() + (this.config.getInt("interact.antypvptime") * 1000L));
     } else {
-      this.delay.replace(player, Long.valueOf(System.currentTimeMillis() + (this.config.getInt("interact.antypvptime") * 1000)));
+      this.delay.replace(player, System.currentTimeMillis() + (this.config.getInt("interact.antypvptime") * 1000L));
     } 
   }
-
 
 
   public Map<Player, Long> getDelay() {

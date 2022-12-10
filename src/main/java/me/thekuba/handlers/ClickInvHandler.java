@@ -3,7 +3,7 @@ package me.thekuba.handlers;
 import java.util.*;
 
 import me.thekuba.Ignotus;
-import me.thekuba.items.ItemPersi;
+import me.thekuba.items.ItemIgnotus;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -13,16 +13,17 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.plugin.Plugin;
 
 public class ClickInvHandler implements Listener {
-  private final Ignotus plugin = (Ignotus) Bukkit.getServer().getPluginManager().getPlugin("Ignotus");
-  private final FileConfiguration config = this.plugin.getConfig();
+  private final Ignotus plugin;
+  private final FileConfiguration config;
 
   private final Map<Player, Long> cooldown = new HashMap<>();
 
   public ClickInvHandler(Ignotus plugin) {
-    Bukkit.getPluginManager().registerEvents(this, (Plugin)plugin);
+      this.plugin = plugin;
+      this.config = plugin.getConfig();
+      Bukkit.getPluginManager().registerEvents(this, plugin);
   }
   
   @EventHandler
@@ -34,17 +35,18 @@ public class ClickInvHandler implements Listener {
 
       Player player = (Player) e.getWhoClicked();
 
-      if(new ItemPersi(e.getWhoClicked().getOpenInventory().getItem(0)).getStringNBT("inventory") == "abyssPersival") {
-        ItemPersi item = new ItemPersi(e.getCurrentItem());
+      // Abyss Inventory Click
+      if(new ItemIgnotus(e.getWhoClicked().getOpenInventory().getItem(0)).getStringNBT("inventory") == "abyssPersival") {
+        ItemIgnotus item = new ItemIgnotus(e.getCurrentItem());
 
         switch (item.getStringNBT("persiId")) {
           case "arrowLeft":
             e.setCancelled(true);
-            e.getWhoClicked().openInventory(plugin.abyssInv.get(new ItemPersi(e.getWhoClicked().getOpenInventory().getItem(0)).getIntNBT("pagePersival") - 1));
+            e.getWhoClicked().openInventory(plugin.abyssInv.get(new ItemIgnotus(e.getWhoClicked().getOpenInventory().getItem(0)).getIntNBT("pagePersival") - 1));
             return;
           case "arrowRight":
             e.setCancelled(true);
-            e.getWhoClicked().openInventory(plugin.abyssInv.get(new ItemPersi(e.getWhoClicked().getOpenInventory().getItem(0)).getIntNBT("pagePersival") + 1));
+            e.getWhoClicked().openInventory(plugin.abyssInv.get(new ItemIgnotus(e.getWhoClicked().getOpenInventory().getItem(0)).getIntNBT("pagePersival") + 1));
             return;
           case "blank":
             e.setCancelled(true);
@@ -55,9 +57,10 @@ public class ClickInvHandler implements Listener {
         }
       }
 
-      else if(new ItemPersi(e.getWhoClicked().getOpenInventory().getItem(0)).getStringNBT("inventory") == "interactPersival") {
-        ItemPersi item = new ItemPersi(e.getCurrentItem());
-        Player player2 = Bukkit.getPlayer(UUID.fromString(new ItemPersi(e.getWhoClicked().getOpenInventory().getItem(0)).getStringNBT("p2")));
+      // Interact Inventory Click
+      else if(new ItemIgnotus(e.getWhoClicked().getOpenInventory().getItem(0)).getStringNBT("inventory") == "interactPersival") {
+        ItemIgnotus item = new ItemIgnotus(e.getCurrentItem());
+        Player player2 = Bukkit.getPlayer(UUID.fromString(new ItemIgnotus(e.getWhoClicked().getOpenInventory().getItem(0)).getStringNBT("p2")));
 
         switch (item.getStringNBT("persiId")) {
           case "profile":
@@ -160,39 +163,25 @@ public class ClickInvHandler implements Listener {
       }
   }
 
-  private ItemPersi addLore(ItemPersi item) {
-    List<String> lore = item.getLore();
-    if(lore == null)
+
+  private ItemIgnotus addLore(ItemIgnotus item) {
+    List<String> lore;
+    if(item.getLore() == null)
       lore = new ArrayList<>();
-    List<String> bonusLore = config.getStringList("items.gift.lore-item");
-    for (String line : bonusLore)
-      lore.add(line);
+    else
+      lore = item.getLore();
+    lore.addAll(config.getStringList("items.gift.lore-item"));
     item.setLore(lore, true, false, null);
     return item;
   }
-  private ItemPersi removeLore(ItemPersi item) {
+  private ItemIgnotus removeLore(ItemIgnotus item) {
     List<String> lore = item.getLore();
-    List<String> bonusLore = config.getStringList("items.gift.lore-item");
-    for (String ignored : bonusLore)
-      lore.remove(lore.size() - 1);
+    lore.removeAll(config.getStringList("items.gift.lore-item"));
     item.setLore(lore, false, false, null);
     return item;
   }
-
-  private boolean checkItem(ItemStack item) {
-    if(item == null)
-      return false;
-    else if(item.getType() == Material.AIR)
-      return false;
-    else if(new ItemPersi(item).getStringNBT("inventory") == null)
-      return false;
-    else
-      return true;
-  }
-
   private ItemStack getConduit(Player player1, Player player2) {
-
-    ItemPersi conduit = new ItemPersi(Material.CONDUIT, 1);
+    ItemIgnotus conduit = new ItemIgnotus(Material.CONDUIT, 1);
     conduit.setStringNBT("persiId", "conduit");
     conduit.setStringNBT("isConduit", "yes");
     conduit.setStringNBT("blocked", "yes");
@@ -200,7 +189,10 @@ public class ClickInvHandler implements Listener {
     conduit.setStringNBT("p2", player2.getUniqueId().toString());
     conduit.setName(config.getString("items.gift.name"), true, true, player2);
     conduit.setLore(config.getStringList("items.gift.lore"), true, true, player2);
-
     return conduit;
   }
+  private boolean checkItem(ItemStack item) {
+    return item != null && item.getType() != Material.AIR && new ItemIgnotus(item).getStringNBT("inventory") != null;
+  }
+
 }

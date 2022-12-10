@@ -6,8 +6,8 @@ import me.thekuba.commands.Set;
 import me.thekuba.commands.Setadmin;
 import me.thekuba.handlers.*;
 import me.thekuba.inventories.AbyssInventory;
-import me.thekuba.items.ItemPersi;
-import me.thekuba.placeholders.PersivalExpansion;
+import me.thekuba.items.ItemIgnotus;
+import me.thekuba.placeholders.IgnotusExpansion;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.Inventory;
@@ -28,6 +28,8 @@ public final class Ignotus extends JavaPlugin implements Listener {
     public DamageHandler pvp;
     public static Permission perms;
     public List<Inventory> abyssInv = new ArrayList<>();
+    public PlayerJoinHandler playerJoin;
+
 
     @Override
     public void onEnable() {
@@ -39,7 +41,7 @@ public final class Ignotus extends JavaPlugin implements Listener {
             toConsoleWarn("You don't have PlaceholderAPI! This plugin is required.");
             Bukkit.getPluginManager().disablePlugin(this);
         } else {
-            (new PersivalExpansion()).register();
+            (new IgnotusExpansion()).register();
         }
         if (Bukkit.getPluginManager().getPlugin("NBTAPI") == null) {
             toConsoleWarn("You don't have NBTAPI! This plugin is required.");
@@ -60,7 +62,7 @@ public final class Ignotus extends JavaPlugin implements Listener {
         new PlayerClickHandler(this);
         new ClickInvHandler(this);
         new CloseInvHandler(this);
-        new PlayerJoinHandler(this);
+        playerJoin = new PlayerJoinHandler(this);
 
         this.pvp = new DamageHandler(this);
 
@@ -72,25 +74,11 @@ public final class Ignotus extends JavaPlugin implements Listener {
 
         toConsoleInfo("The Persival plugin has been successfully loaded.");
     }
-
     @Override
     public void onDisable() {
-
+        playerJoin.clearNameTags();
     }
 
-    public static void toConsoleInfo(String msg) {
-        Bukkit.getLogger().info("[Ignotus] " + msg);
-    }
-
-    public static void toConsoleWarn(String msg) {
-        Bukkit.getLogger().warning("[Ignotus]   " + msg);
-    }
-
-    private boolean setupPermissions() {
-        RegisteredServiceProvider<Permission> rsp = getServer().getServicesManager().getRegistration(Permission.class);
-        perms = rsp.getProvider();
-        return (perms != null);
-    }
 
     public void applyAbyss(List<ItemStack> items) {
         int itemsSize = items.size();
@@ -112,26 +100,38 @@ public final class Ignotus extends JavaPlugin implements Listener {
                     items2.add(item);
                 if (i == 0) {
                     AbyssInventory invTemp = new AbyssInventory(itemsOne, 0, i);
-                    ItemPersi itemTemp = new ItemPersi(invTemp.inv.getItem(0));
+                    ItemIgnotus itemTemp = new ItemIgnotus(invTemp.inv.getItem(0));
                     itemTemp.setIntNBT("abyssValue", i);
                     this.abyssInv.add(invTemp.inv);
                 } else if (i == itemsSize / 36) {
                     AbyssInventory invTemp = new AbyssInventory(itemsOne, 1, i);
-                    ItemPersi itemTemp = new ItemPersi(invTemp.inv.getItem(0));
+                    ItemIgnotus itemTemp = new ItemIgnotus(invTemp.inv.getItem(0));
                     itemTemp.setIntNBT("abyssValue", i);
                     this.abyssInv.add(invTemp.inv);
                 } else {
                     AbyssInventory invTemp = new AbyssInventory(itemsOne, 2, i);
-                    ItemPersi itemTemp = new ItemPersi(invTemp.inv.getItem(0));
+                    ItemIgnotus itemTemp = new ItemIgnotus(invTemp.inv.getItem(0));
                     itemTemp.setIntNBT("abyssValue", i);
                     this.abyssInv.add(invTemp.inv);
                 }
             }
         } else {
             AbyssInventory invTemp = new AbyssInventory(items, 3, 0);
-            ItemPersi itemTemp = new ItemPersi(invTemp.inv.getItem(0));
+            ItemIgnotus itemTemp = new ItemIgnotus(invTemp.inv.getItem(0));
             itemTemp.setIntNBT("abyssValue", 0);
             this.abyssInv.add(invTemp.inv);
         }
+    }
+    public static void toConsoleInfo(String msg) {
+        Bukkit.getLogger().info("[Ignotus] " + msg);
+    }
+    public static void toConsoleWarn(String msg) {
+        Bukkit.getLogger().warning("[Ignotus]   " + msg);
+    }
+
+    private boolean setupPermissions() {
+        RegisteredServiceProvider<Permission> rsp = getServer().getServicesManager().getRegistration(Permission.class);
+        perms = rsp.getProvider();
+        return (perms != null);
     }
 }

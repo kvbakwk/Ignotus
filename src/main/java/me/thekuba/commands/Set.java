@@ -22,13 +22,14 @@ public class Set implements CommandExecutor, TabCompleter {
   private final FileConfiguration playersConfig = this.plugin.playersFile.getConfig();
 
   private static final String[] COMMANDS = new String[] { "Instagram", "YouTube", "Twitch", "Discord", "Snapchat", "Status" };
-  
+
+
   public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {
     if (!(sender instanceof Player))
       return true;
 
     int i, longMax;
-    String argument0, argument1, longMaxString;
+    String argument0, argument1;
     StringBuilder argument1B;
     Player player = (Player)sender;
 
@@ -88,4 +89,5 @@ public class Set implements CommandExecutor, TabCompleter {
 
     return completions;
   }
+
 }
