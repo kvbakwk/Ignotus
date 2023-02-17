@@ -12,26 +12,26 @@ depend:
   - SuperVanish
 commands:
   set:
-    description: Set player's media.
+    description: Set yourself media.
     usage: /set <profil> <nazwa>
     aliases: ustaw
-    permission: persival.ustaw
+    permission: ignotus.set
     permission-message: §4» §cNie masz dostępu do tej komendy.
   setadmin:
-    description: Set player's media by others.
+    description: Set player's media.
     usage: /setadmin <profil> <nick> <nazwa>
     aliases: ustawadmin
-    permission: persival.admin
+    permission: ignotus.admin
     permission-message: §4» §cNie masz dostępu do tej komendy.
-  otchlan:
-    description: Open otchlan if is.
-    usage: /otchlan
-    aliases: pustka
-    permission: persival.otchlan
+  abyss:
+    description: Open abyss.
+    usage: /abyss
+    aliases: otchlan
+    permission: ignotus.abyss
     permission-message: §4» §cNie masz dostępu do tej komendy.
   self:
-    description: Open profile.
+    description: Open yourself profile.
     usage: /self
     aliases: ja
-    permission: persival.self
+    permission: ignotus.self
     permission-message: §4» §cNie masz dostępu do tej komendy.

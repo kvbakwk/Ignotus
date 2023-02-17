@@ -15,7 +15,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.util.StringUtil;
 import org.jetbrains.annotations.NotNull;
 
-public class Otchlan implements CommandExecutor, TabCompleter {
+public class Abyss implements CommandExecutor, TabCompleter {
   private final Ignotus plugin = (Ignotus) Bukkit.getServer().getPluginManager().getPlugin("Ignotus");
   private final FileConfiguration config = this.plugin.getConfig();
 

@@ -1,6 +1,6 @@
 package me.thekuba;
 
-import me.thekuba.commands.Otchlan;
+import me.thekuba.commands.Abyss;
 import me.thekuba.commands.Self;
 import me.thekuba.commands.Set;
 import me.thekuba.commands.Setadmin;
@@ -56,7 +56,7 @@ public final class Ignotus extends JavaPlugin implements Listener {
 
         getCommand("set").setExecutor(new Set());
         getCommand("setadmin").setExecutor(new Setadmin());
-        getCommand("otchlan").setExecutor(new Otchlan());
+        getCommand("abyss").setExecutor(new Abyss());
         getCommand("self").setExecutor(new Self());
 
         new PlayerClickHandler(this);
