@@ -19,6 +19,7 @@ import me.thekuba.files.GroupsManager;
 import net.milkbowl.vault.permission.Permission;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public final class Ignotus extends JavaPlugin implements Listener {
 
@@ -81,7 +82,13 @@ public final class Ignotus extends JavaPlugin implements Listener {
 
 
     public void applyAbyss(List<ItemStack> items) {
-        int itemsSize = items.size();
+        int itemsSize;
+        if(!Objects.equals(items, null))
+            itemsSize = items.size();
+        else {
+            itemsSize = 0;
+            items = new ArrayList<>();
+        }
         this.abyssInv = new ArrayList<>();
         List<ItemStack> items2 = new ArrayList<>();
         for (ItemStack item : items)

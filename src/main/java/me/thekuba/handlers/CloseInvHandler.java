@@ -1,6 +1,7 @@
 package me.thekuba.handlers;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 import me.thekuba.Ignotus;
@@ -28,7 +29,7 @@ public class CloseInvHandler implements Listener {
   public void onCloseInventory(InventoryCloseEvent e) {
     if(!checkItem(e.getInventory().getItem(0)))
       return;
-    if(!checkItem(e.getInventory().getItem(37)))
+    if(e.getInventory().getSize() < 37 || !checkItem(e.getInventory().getItem(37)))
       return;
 
     // Interact Inventory Close
