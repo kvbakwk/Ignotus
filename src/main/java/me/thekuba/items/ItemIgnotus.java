@@ -54,10 +54,12 @@ public class ItemIgnotus extends ItemStack {
     if (lore != null && lore.size() != 0) {
       int counter = 0;
       for (String loreLine : lore) {
-        if (placeholders)
-          lore.set(counter, PlaceholderAPI.setPlaceholders(player, loreLine));
+        if (placeholders) {
+          loreLine = PlaceholderAPI.setPlaceholders(player, loreLine);
+        }
         if (color)
-          lore.set(counter, ChatColor.translateAlternateColorCodes('&', loreLine));
+          loreLine = ChatColor.translateAlternateColorCodes('&', loreLine);
+        lore.set(counter, loreLine);
         counter++;
       } 
     } else

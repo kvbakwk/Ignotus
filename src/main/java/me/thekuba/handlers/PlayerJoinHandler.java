@@ -118,7 +118,7 @@ public class PlayerJoinHandler implements Listener {
             (armorStands.get(player))[0].teleport(player.getLocation().add(0.0D, 1.75D, 0.0D));
             (armorStands.get(player))[1].teleport(player.getLocation().add(0.0D, 2.05D, 0.0D));
           }
-          if (player.getGameMode().equals(GameMode.SPECTATOR) || VanishAPI.isInvisible(player)) {
+          if (player.getGameMode().equals(GameMode.SPECTATOR) || VanishAPI.isInvisible(player) || player.isSneaking()) {
             (armorStands.get(player))[0].setCustomNameVisible(false);
             (armorStands.get(player))[1].setCustomNameVisible(false);
           } else {
@@ -135,8 +135,8 @@ public class PlayerJoinHandler implements Listener {
             (armorStands.get(player))[0].teleport(player.getLocation().add(0.0D, 50.0D, 0.0D));
             (armorStands.get(player))[1].teleport(player.getLocation().add(0.0D, 50.0D, 0.0D));
           } else if (player.isSwimming()) {
-            (armorStands.get(player))[0].teleport(player.getLocation().add(0.0D, -0.35D, 0.0D));
-            (armorStands.get(player))[1].teleport(player.getLocation().add(0.0D, -0.35D, 0.0D));
+            (armorStands.get(player))[0].teleport(player.getLocation().add(0.0D, 0.3D, 0.0D));
+            (armorStands.get(player))[1].teleport(player.getLocation().add(0.0D, 0.3D, 0.0D));
           } else if (player.isSneaking()) {
             (armorStands.get(player))[0].teleport(player.getLocation().add(0.0D, 1.45D, 0.0D));
             (armorStands.get(player))[1].teleport(player.getLocation().add(0.0D, 1.45D, 0.0D));
@@ -144,7 +144,7 @@ public class PlayerJoinHandler implements Listener {
             (armorStands.get(player))[0].teleport(player.getLocation().add(0.0D, 1.75D, 0.0D));
             (armorStands.get(player))[1].teleport(player.getLocation().add(0.0D, 1.75D, 0.0D));
           }
-          if (player.getGameMode().equals(GameMode.SPECTATOR) || VanishAPI.isInvisible(player)) {
+          if (player.getGameMode().equals(GameMode.SPECTATOR) || VanishAPI.isInvisible(player) || player.isSneaking()) {
             (armorStands.get(player))[1].setCustomNameVisible(false);
           } else {
             (armorStands.get(player))[1].setCustomNameVisible(true);

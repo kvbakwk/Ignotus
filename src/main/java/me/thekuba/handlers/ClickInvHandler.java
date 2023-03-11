@@ -176,7 +176,10 @@ public class ClickInvHandler implements Listener {
   }
   private ItemIgnotus removeLore(ItemIgnotus item) {
     List<String> lore = item.getLore();
-    lore.removeAll(config.getStringList("items.gift.lore-item"));
+    for(int i = 0; i < config.getStringList("items.gift.lore-item").size(); i++) {
+      lore.remove(lore.size() - 1);
+    }
+//    lore.removeAll(config.getStringList("items.gift.lore-item"));
     item.setLore(lore, false, false, null);
     return item;
   }
