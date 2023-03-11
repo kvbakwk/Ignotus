@@ -60,6 +60,7 @@ public final class Ignotus extends JavaPlugin implements Listener {
         getCommand("setadmin").setExecutor(new Setadmin());
         getCommand("abyss").setExecutor(new Abyss());
         getCommand("self").setExecutor(new Self());
+        getCommand("ignotus").setExecutor(new me.thekuba.commands.Ignotus());
 
         new PlayerClickHandler(this);
         new ClickInvHandler(this);
