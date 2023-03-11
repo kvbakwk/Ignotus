@@ -61,6 +61,7 @@ public final class Ignotus extends JavaPlugin implements Listener {
         new PlayerClickHandler(this);
         new ClickInvHandler(this);
         new CloseInvHandler(this);
+        new TabHandler(this);
         playerJoin = new PlayerJoinHandler(this);
 
         this.pvp = new DamageHandler(this);

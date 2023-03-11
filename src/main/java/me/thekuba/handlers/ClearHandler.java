@@ -73,7 +73,7 @@ public class ClearHandler {
       // Chat messages
       {
               if (x == interval * 20) {
-                if (!(config.getString("messages.abyss-open").equals("")))
+                if (!config.getString("messages.abyss-open").equals(""))
                   Bukkit.broadcastMessage(config.getString("messages.abyss-open")
                           .replace("{1}", Integer.toString(size)));
               }

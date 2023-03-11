@@ -53,7 +53,7 @@ public class Set implements CommandExecutor, TabCompleter {
             player.sendMessage(this.config.getString("messages.toolong").replace("{1}", Integer.toString(longMax)));
           else {
             player.sendMessage(this.config.getString("messages.success").replace("{1}", argument1)
-                .replace("{0}", args[0].toLowerCase() + "a"));
+                .replace("{0}", args[0].toLowerCase()));
             this.playersConfig.set("players." + player.getUniqueId() + "." + argument0, argument1);
             this.plugin.playersFile.saveConfig();
             return true;

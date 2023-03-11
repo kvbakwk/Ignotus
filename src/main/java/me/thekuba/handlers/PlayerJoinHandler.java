@@ -52,7 +52,7 @@ public class PlayerJoinHandler implements Listener {
       this.playersConfig.getConfig().set("players." + player.getUniqueId() + ".twitch", "");
       this.playersConfig.getConfig().set("players." + player.getUniqueId() + ".discord", "");
       this.playersConfig.getConfig().set("players." + player.getUniqueId() + ".snapchat", "");
-      this.playersConfig.getConfig().set("players." + player.getUniqueId() + ".status", "");
+      this.playersConfig.getConfig().set("players." + player.getUniqueId() + ".status", "off");
       this.playersConfig.saveConfig();
     }
 
@@ -76,7 +76,7 @@ public class PlayerJoinHandler implements Listener {
     x = 0;
     Bukkit.getScheduler().runTaskTimer(this.plugin, () -> {
 
-      if (x % 100 == 0)
+      if (x % 20 == 0)
         PlayerJoinHandler.this.setTeam(player, score);
 
       if (x == 0 && armorStands.get(player) != null)
