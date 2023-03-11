@@ -9,6 +9,7 @@ import me.thekuba.inventories.AbyssInventory;
 import me.thekuba.items.ItemIgnotus;
 import me.thekuba.placeholders.IgnotusExpansion;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -73,7 +74,7 @@ public final class Ignotus extends JavaPlugin implements Listener {
             applyAbyss(items);
         }
 
-        toConsoleInfo("The Persival plugin has been successfully loaded.");
+        toConsoleInfo("The Ignotus plugin has been successfully loaded.");
     }
     @Override
     public void onDisable() {
