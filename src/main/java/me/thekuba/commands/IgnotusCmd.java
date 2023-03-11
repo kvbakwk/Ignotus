@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Ignotus implements CommandExecutor, TabCompleter {
+public class IgnotusCmd implements CommandExecutor, TabCompleter {
   private final me.thekuba.Ignotus plugin = (me.thekuba.Ignotus) Bukkit.getServer().getPluginManager().getPlugin("Ignotus");
   private final FileConfiguration config = this.plugin.getConfig();
 

@@ -1,15 +1,11 @@
 package me.thekuba;
 
-import me.thekuba.commands.Abyss;
-import me.thekuba.commands.Self;
-import me.thekuba.commands.Set;
-import me.thekuba.commands.Setadmin;
+import me.thekuba.commands.*;
 import me.thekuba.handlers.*;
 import me.thekuba.inventories.AbyssInventory;
 import me.thekuba.items.ItemIgnotus;
 import me.thekuba.placeholders.IgnotusExpansion;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -60,7 +56,7 @@ public final class Ignotus extends JavaPlugin implements Listener {
         getCommand("setadmin").setExecutor(new Setadmin());
         getCommand("abyss").setExecutor(new Abyss());
         getCommand("self").setExecutor(new Self());
-        getCommand("ignotus").setExecutor(new me.thekuba.commands.Ignotus());
+        getCommand("ignotus").setExecutor(new IgnotusCmd());
 
         new PlayerClickHandler(this);
         new ClickInvHandler(this);

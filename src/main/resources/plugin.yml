@@ -35,3 +35,6 @@ commands:
     aliases: ja
     permission: ignotus.self
     permission-message: §4» §cNie masz dostępu do tej komendy.
+  ignotus:
+    description: Help.
+    usage: /ignotus
