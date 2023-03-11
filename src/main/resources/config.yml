@@ -5,14 +5,8 @@
 # Author: thekuba
 #
 
-database:
-  host: ""
-  port: ""
-  database: ""
-  username: ""
-  password: ""
-
 messages: # Support colors by '§' only. Sorry :<
+  help: "§e§lIgnotus §8- §7very useful minecraft plugin."
   no-permission: "§4» §cNie masz dostępu do tej komendy."
   error: "§c» §7Operacja nie powiodła się. Skontaktuj się z administracją."
   usage: "§cUżyj: §7/set {1} <nazwa>"
