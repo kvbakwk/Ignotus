@@ -16,7 +16,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.util.StringUtil;
 import org.jetbrains.annotations.NotNull;
 
-public class Setadmin implements CommandExecutor, TabCompleter {
+public class SetAdminCommand implements CommandExecutor, TabCompleter {
   private final Ignotus plugin = (Ignotus) Bukkit.getServer().getPluginManager().getPlugin("Ignotus");
   private final FileConfiguration config = this.plugin.getConfig();
   private final FileConfiguration playersConfig = this.plugin.playersFile.getConfig();
@@ -46,7 +46,7 @@ public class Setadmin implements CommandExecutor, TabCompleter {
 
         if (argument0.equals("instagram") || argument0.equals("youtube") || argument0.equals("twitch") || argument0.equals("discord") || argument0.equals("snapchat") || argument0.equals("status")) {
           sender.sendMessage(this.config.getString("messages.success-admin")
-                  .replace("{0}", args[0].toLowerCase() + "a")
+                  .replace("{0}", args[0].toLowerCase())
                   .replace("{1}", argument1)
                   .replace("{2}", argument2));
           this.playersConfig.set("players." + Bukkit.getPlayer(argument1).getUniqueId() + "." + argument0, argument2);

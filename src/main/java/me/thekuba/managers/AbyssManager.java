@@ -1,10 +1,10 @@
-package me.thekuba.handlers;
+package me.thekuba.managers;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import me.thekuba.Ignotus;
-import me.thekuba.items.ItemIgnotus;
+import me.thekuba.IgnotusItem;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -19,7 +19,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 
-public class ClearHandler {
+public class AbyssManager {
   private final Ignotus plugin;
   private final FileConfiguration config;
 
@@ -30,7 +30,7 @@ public class ClearHandler {
   private final BossBar bar = Bukkit.createBossBar("", BarColor.BLUE, BarStyle.SEGMENTED_20);
 
 
-  public ClearHandler(Ignotus plugin) {
+  public AbyssManager(Ignotus plugin) {
     this.plugin = plugin;
     this.config = plugin.getConfig();
     List<World> worlds = Bukkit.getServer().getWorlds();
@@ -62,7 +62,7 @@ public class ClearHandler {
           this.plugin.applyAbyss(items);
           for (Player p : Bukkit.getOnlinePlayers()) {
             if (p.getOpenInventory() != null) {
-              ItemIgnotus item = new ItemIgnotus(p.getOpenInventory().getItem(0));
+              IgnotusItem item = new IgnotusItem(p.getOpenInventory().getItem(0));
               if (item != null && item.getType() != Material.AIR && item.getStringNBT("inventory").equals("abyssPersival"))
                 p.closeInventory();
             }
@@ -72,7 +72,7 @@ public class ClearHandler {
       }
       // Chat messages
       {
-              if (x == interval * 20) {
+              if (x == 0) {
                 if (!config.getString("messages.abyss-open").equals(""))
                   Bukkit.broadcastMessage(config.getString("messages.abyss-open")
                           .replace("{1}", Integer.toString(size)));

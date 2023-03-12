@@ -10,12 +10,12 @@ import me.thekuba.Ignotus;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
-public class PlayersManager {
+public class PlayersFile {
   private final Ignotus plugin;
   private FileConfiguration playersConfig;
   private File configFile;
   
-  public PlayersManager(Ignotus plugin) {
+  public PlayersFile(Ignotus plugin) {
     this.plugin = plugin;
     saveDefaultConfig();
   }

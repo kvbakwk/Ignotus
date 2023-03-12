@@ -10,12 +10,12 @@ import me.thekuba.Ignotus;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
-public class GroupsManager {
+public class GroupsFile {
   private final Ignotus plugin;
   private FileConfiguration groupsConfig;
   private File configFile;
   
-  public GroupsManager(Ignotus plugin) {
+  public GroupsFile(Ignotus plugin) {
     this.plugin = plugin;
     saveDefaultConfig();
   }

@@ -1,11 +1,5 @@
 package me.thekuba.commands;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import me.thekuba.Ignotus;
-import me.thekuba.inventories.InteractInventory;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -16,24 +10,24 @@ import org.bukkit.entity.Player;
 import org.bukkit.util.StringUtil;
 import org.jetbrains.annotations.NotNull;
 
-public class Self implements CommandExecutor, TabCompleter {
-  private final Ignotus plugin = (Ignotus) Bukkit.getServer().getPluginManager().getPlugin("Ignotus");
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+public class IgnotusCommand implements CommandExecutor, TabCompleter {
+  private final me.thekuba.Ignotus plugin = (me.thekuba.Ignotus) Bukkit.getServer().getPluginManager().getPlugin("Ignotus");
   private final FileConfiguration config = this.plugin.getConfig();
 
   private static final String[] COMMANDS = new String[0];
 
 
-  public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-    if (!(sender instanceof Player))
-      return true; 
+  public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
 
-    Player player = (Player)sender;
-
-    if (this.config.getBoolean("interact.enable"))
-      InteractInventory.openInv(player, player);
+    for(String line : this.config.getStringList("messages.help")) {
+      sender.sendMessage(line);
+    }
 
     return true;
-
   }
   
   public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, @NotNull String[] args) {

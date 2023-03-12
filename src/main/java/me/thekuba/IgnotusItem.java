@@ -1,4 +1,4 @@
-package me.thekuba.items;
+package me.thekuba;
 
 import java.util.List;
 
@@ -18,20 +18,20 @@ import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.potion.PotionData;
 import org.bukkit.potion.PotionType;
 
-public class ItemIgnotus extends ItemStack {
+public class IgnotusItem extends ItemStack {
   private boolean isNBT = false;
   private int amountNBT = 0;
 
 
-  public ItemIgnotus(Material material) {
+  public IgnotusItem(Material material) {
     super(material);
   }
   
-  public ItemIgnotus(Material material, int amount) {
+  public IgnotusItem(Material material, int amount) {
     super(material, amount);
   }
   
-  public ItemIgnotus(ItemStack item) {
+  public IgnotusItem(ItemStack item) {
     super(item);
   }
 
@@ -167,12 +167,12 @@ public class ItemIgnotus extends ItemStack {
   }
 
 
-  public static ItemIgnotus Blank(Material material) {
+  public static IgnotusItem Blank(Material material) {
     FileConfiguration config = Bukkit.getServer().getPluginManager().getPlugin("Ignotus").getConfig();
     String name = config.getString("items.blank.name");
     List<String> lore = config.getStringList("items.blank.lore");
     int amount = config.getInt("items.blank.amount");
-    ItemIgnotus item = new ItemIgnotus(material, amount);
+    IgnotusItem item = new IgnotusItem(material, amount);
     item.setName(name, true, false, (Player)null);
     if (lore.size() != 0)
       item.setLore(lore, true, false, (Player)null); 

@@ -6,8 +6,8 @@ import java.util.Map;
 import de.myzelyam.api.vanish.VanishAPI;
 import me.clip.placeholderapi.PlaceholderAPI;
 import me.thekuba.Ignotus;
-import me.thekuba.files.GroupsManager;
-import me.thekuba.files.PlayersManager;
+import me.thekuba.files.GroupsFile;
+import me.thekuba.files.PlayersFile;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
@@ -23,8 +23,8 @@ import org.jetbrains.annotations.NotNull;
 
 public class PlayerJoinHandler implements Listener {
   private final Ignotus plugin;
-  private final PlayersManager playersConfig;
-  private final GroupsManager groupsConfig;
+  private final PlayersFile playersConfig;
+  private final GroupsFile groupsConfig;
 
   private int x;
   private final Map<Player, ArmorStand[]> armorStands = new HashMap<>();

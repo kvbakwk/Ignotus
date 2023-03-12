@@ -1,4 +1,4 @@
-package me.thekuba.handlers;
+package me.thekuba.managers;
 
 import me.clip.placeholderapi.PlaceholderAPI;
 import me.thekuba.Ignotus;
@@ -9,11 +9,11 @@ import org.bukkit.entity.Player;
 
 import java.util.List;
 
-public class TabHandler {
+public class TabManager {
     private final Ignotus plugin;
     private final FileConfiguration config;
 
-    public TabHandler (Ignotus plugin) {
+    public TabManager(Ignotus plugin) {
         this.plugin = plugin;
         this.config = plugin.getConfig();
 
@@ -30,32 +30,29 @@ public class TabHandler {
 
         Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
 
-            int counter = 0, countH = 0, countF = 0;
+            int counter = 0, countR = 0, countH = 0, countF = 0;
 
             @Override
             public void run() {
-                if(counter % config.getInt("tablist.refreshFrequency") == 0){
-
+                if(counter % config.getInt("tablist.refreshFrequency") == 0)
                     if(Bukkit.getOnlinePlayers().size() != 0)
                         for(Player player : Bukkit.getOnlinePlayers()) {
                             player.setPlayerListHeader(format(player, headers.get(countH)));
                             player.setPlayerListFooter(format(player, footers.get(countF)));
                         }
 
-                    if(counter % config.getInt("tablist.frequency") == 0){
-                        countH++;
-                        countF++;
-                        if(countH == headers.size())
-                            countH = 0;
-                        if(countF == footers.size())
-                            countF = 0;
-                    }
-
-                    if(counter > 100000) {
-                        counter = 0;
-                    }
+                if(counter % config.getInt("tablist.frequency") == 0){
+                    countH++;
+                    countF++;
+                    if(countH == headers.size())
+                        countH = 0;
+                    if(countF == footers.size())
+                        countF = 0;
                 }
                 counter++;
+
+                if(counter > 100000)
+                    counter = 0;
             }
         }, 10, 1);
     }

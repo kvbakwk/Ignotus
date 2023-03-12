@@ -15,7 +15,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.Plugin;
-import me.thekuba.items.ItemIgnotus;
+import me.thekuba.IgnotusItem;
 
 public class InteractInventory {
   private final static Plugin plugin = Ignotus.getPlugin(Ignotus.class);
@@ -72,7 +72,7 @@ public class InteractInventory {
   }
   
   private static List<ItemStack> getItems(Player player1, Player player2) {
-    ItemIgnotus profil = new ItemIgnotus(Material.PLAYER_HEAD, 1);
+    IgnotusItem profil = new IgnotusItem(Material.PLAYER_HEAD, 1);
     profil.setSkull(player2);
     profil.setStringNBT("persiId", "profile");
     profil.setStringNBT("blocked", "yes");
@@ -81,28 +81,28 @@ public class InteractInventory {
     profil.setStringNBT("p2", player2.getUniqueId().toString());
     profil.setName(config.getString("items.profile.name"), true, true, player2);
     profil.setLore(config.getStringList("items.profile.lore"), true, true, player2);
-    ItemIgnotus item0 = new ItemIgnotus(Material.REPEATER, 1);
+    IgnotusItem item0 = new IgnotusItem(Material.REPEATER, 1);
     item0.setStringNBT("persiId", "i0");
     item0.setStringNBT("blocked", "yes");
     item0.setStringNBT("p1", player1.getUniqueId().toString());
     item0.setStringNBT("p2", player2.getUniqueId().toString());
     item0.setName(config.getString("items.item0.name"), true, true, player2);
     item0.setLore(config.getStringList("items.item0.lore"), true, true, player2);
-    ItemIgnotus item1 = new ItemIgnotus(Material.ENDER_EYE, 1);
+    IgnotusItem item1 = new IgnotusItem(Material.ENDER_EYE, 1);
     item1.setStringNBT("persiId", "i1");
     item1.setStringNBT("blocked", "yes");
     item1.setStringNBT("p1", player1.getUniqueId().toString());
     item1.setStringNBT("p2", player2.getUniqueId().toString());
     item1.setName(config.getString("items.item1.name"), true, true, player2);
     item1.setLore(config.getStringList("items.item1.lore"), true, true, player2);
-    ItemIgnotus item2 = new ItemIgnotus(Material.BRICKS, 1);
+    IgnotusItem item2 = new IgnotusItem(Material.BRICKS, 1);
     item2.setStringNBT("persiId", "i2");
     item2.setStringNBT("blocked", "yes");
     item2.setStringNBT("p1", player1.getUniqueId().toString());
     item2.setStringNBT("p2", player2.getUniqueId().toString());
     item2.setName(config.getString("items.item2.name"), true, true, player2);
     item2.setLore(config.getStringList("items.item2.lore"), true, true, player2);
-    ItemIgnotus item3 = new ItemIgnotus(Material.CONDUIT, 1);
+    IgnotusItem item3 = new IgnotusItem(Material.CONDUIT, 1);
     item3.setStringNBT("persiId", "conduit");
     item3.setStringNBT("isConduit", "yes");
     item3.setStringNBT("blocked", "yes");
@@ -110,14 +110,14 @@ public class InteractInventory {
     item3.setStringNBT("p2", player2.getUniqueId().toString());
     item3.setName(config.getString("items.gift.name"), true, true, player2);
     item3.setLore(config.getStringList("items.gift.lore"), true, true, player2);
-    ItemIgnotus item4 = new ItemIgnotus(Material.CLOCK, 1);
+    IgnotusItem item4 = new IgnotusItem(Material.CLOCK, 1);
     item4.setStringNBT("persiId", "blank");
     item4.setStringNBT("blocked", "yes");
     item4.setStringNBT("p1", player1.getUniqueId().toString());
     item4.setStringNBT("p2", player2.getUniqueId().toString());
     item4.setName(config.getString("items.media.name"), true, true, player2);
     item4.setLore(config.getStringList("items.media.lore"), true, true, player2);
-    ItemStack blank = ItemIgnotus.Blank(Material.BLACK_STAINED_GLASS_PANE);
+    ItemStack blank = IgnotusItem.Blank(Material.BLACK_STAINED_GLASS_PANE);
     ItemStack temp = player2.getInventory().getItemInMainHand();
     if (temp == null || temp.getType() == Material.AIR)
       temp = blank; 

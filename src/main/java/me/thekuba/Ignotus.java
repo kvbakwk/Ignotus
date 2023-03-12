@@ -1,9 +1,10 @@
 package me.thekuba;
 
-import me.thekuba.commands.*;
 import me.thekuba.handlers.*;
 import me.thekuba.inventories.AbyssInventory;
-import me.thekuba.items.ItemIgnotus;
+import me.thekuba.managers.AbyssManager;
+import me.thekuba.managers.CommandManager;
+import me.thekuba.managers.TabManager;
 import me.thekuba.placeholders.IgnotusExpansion;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
@@ -11,8 +12,8 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
-import me.thekuba.files.PlayersManager;
-import me.thekuba.files.GroupsManager;
+import me.thekuba.files.PlayersFile;
+import me.thekuba.files.GroupsFile;
 import net.milkbowl.vault.permission.Permission;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,9 +21,9 @@ import java.util.Objects;
 
 public final class Ignotus extends JavaPlugin implements Listener {
 
-    public ClearHandler clear;
-    public PlayersManager playersFile;
-    public GroupsManager groupsFile;
+    public AbyssManager clear;
+    public PlayersFile playersFile;
+    public GroupsFile groupsFile;
     public DamageHandler pvp;
     public static Permission perms;
     public List<Inventory> abyssInv = new ArrayList<>();
@@ -31,8 +32,8 @@ public final class Ignotus extends JavaPlugin implements Listener {
 
     @Override
     public void onEnable() {
-        this.playersFile = new PlayersManager(this);
-        this.groupsFile = new GroupsManager(this);
+        this.playersFile = new PlayersFile(this);
+        this.groupsFile = new GroupsFile(this);
         saveDefaultConfig();
 
         if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") == null) {
@@ -52,22 +53,18 @@ public final class Ignotus extends JavaPlugin implements Listener {
 
         setupPermissions();
 
-        getCommand("set").setExecutor(new Set());
-        getCommand("setadmin").setExecutor(new Setadmin());
-        getCommand("abyss").setExecutor(new Abyss());
-        getCommand("self").setExecutor(new Self());
-        getCommand("ignotus").setExecutor(new IgnotusCmd());
+        new CommandManager(this);
 
         new PlayerClickHandler(this);
         new ClickInvHandler(this);
         new CloseInvHandler(this);
-        new TabHandler(this);
+        new TabManager(this);
         playerJoin = new PlayerJoinHandler(this);
 
         this.pvp = new DamageHandler(this);
 
         if (getConfig().getBoolean("abyss.enable")) {
-            this.clear = new ClearHandler(this);
+            this.clear = new AbyssManager(this);
             List<ItemStack> items = this.clear.getItems();
             applyAbyss(items);
         }
@@ -106,24 +103,24 @@ public final class Ignotus extends JavaPlugin implements Listener {
                     items2.add(item);
                 if (i == 0) {
                     AbyssInventory invTemp = new AbyssInventory(itemsOne, 0, i);
-                    ItemIgnotus itemTemp = new ItemIgnotus(invTemp.inv.getItem(0));
+                    IgnotusItem itemTemp = new IgnotusItem(invTemp.inv.getItem(0));
                     itemTemp.setIntNBT("abyssValue", i);
                     this.abyssInv.add(invTemp.inv);
                 } else if (i == itemsSize / 36) {
                     AbyssInventory invTemp = new AbyssInventory(itemsOne, 1, i);
-                    ItemIgnotus itemTemp = new ItemIgnotus(invTemp.inv.getItem(0));
+                    IgnotusItem itemTemp = new IgnotusItem(invTemp.inv.getItem(0));
                     itemTemp.setIntNBT("abyssValue", i);
                     this.abyssInv.add(invTemp.inv);
                 } else {
                     AbyssInventory invTemp = new AbyssInventory(itemsOne, 2, i);
-                    ItemIgnotus itemTemp = new ItemIgnotus(invTemp.inv.getItem(0));
+                    IgnotusItem itemTemp = new IgnotusItem(invTemp.inv.getItem(0));
                     itemTemp.setIntNBT("abyssValue", i);
                     this.abyssInv.add(invTemp.inv);
                 }
             }
         } else {
             AbyssInventory invTemp = new AbyssInventory(items, 3, 0);
-            ItemIgnotus itemTemp = new ItemIgnotus(invTemp.inv.getItem(0));
+            IgnotusItem itemTemp = new IgnotusItem(invTemp.inv.getItem(0));
             itemTemp.setIntNBT("abyssValue", 0);
             this.abyssInv.add(invTemp.inv);
         }

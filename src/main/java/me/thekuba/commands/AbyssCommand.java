@@ -1,5 +1,10 @@
 package me.thekuba.commands;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import me.thekuba.Ignotus;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -10,22 +15,25 @@ import org.bukkit.entity.Player;
 import org.bukkit.util.StringUtil;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-public class IgnotusCmd implements CommandExecutor, TabCompleter {
-  private final me.thekuba.Ignotus plugin = (me.thekuba.Ignotus) Bukkit.getServer().getPluginManager().getPlugin("Ignotus");
+public class AbyssCommand implements CommandExecutor, TabCompleter {
+  private final Ignotus plugin = (Ignotus) Bukkit.getServer().getPluginManager().getPlugin("Ignotus");
   private final FileConfiguration config = this.plugin.getConfig();
 
   private static final String[] COMMANDS = new String[0];
 
 
   public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-
-    Player player = (Player) sender;
-    player.sendMessage(this.config.getString("messages.help"));
-
+    if (!(sender instanceof Player))
+      return true; 
+    if (this.plugin.clear != null) {
+      Player player = (Player) sender;
+      if (    this.plugin.clear.getTime() < this.config.getInt("abyss.interval") - this.config.getInt("abyss.lookable") &&
+              this.config.getInt("abyss.lookable") > 0) {
+        player.sendMessage(this.config.getString("messages.abyss-closed").replace("{1}", Integer.toString(this.plugin.clear.getTime())));
+        return true;
+      } 
+      player.openInventory(this.plugin.abyssInv.get(0));
+    }
     return true;
   }
   

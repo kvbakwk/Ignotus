@@ -3,7 +3,7 @@ package me.thekuba.handlers;
 import java.util.*;
 
 import me.thekuba.Ignotus;
-import me.thekuba.items.ItemIgnotus;
+import me.thekuba.IgnotusItem;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -36,17 +36,17 @@ public class ClickInvHandler implements Listener {
       Player player = (Player) e.getWhoClicked();
 
       // Abyss Inventory Click
-      if(new ItemIgnotus(e.getWhoClicked().getOpenInventory().getItem(0)).getStringNBT("inventory") == "abyssPersival") {
-        ItemIgnotus item = new ItemIgnotus(e.getCurrentItem());
+      if(new IgnotusItem(e.getWhoClicked().getOpenInventory().getItem(0)).getStringNBT("inventory") == "abyssPersival") {
+        IgnotusItem item = new IgnotusItem(e.getCurrentItem());
 
         switch (item.getStringNBT("persiId")) {
           case "arrowLeft":
             e.setCancelled(true);
-            e.getWhoClicked().openInventory(plugin.abyssInv.get(new ItemIgnotus(e.getWhoClicked().getOpenInventory().getItem(0)).getIntNBT("pagePersival") - 1));
+            e.getWhoClicked().openInventory(plugin.abyssInv.get(new IgnotusItem(e.getWhoClicked().getOpenInventory().getItem(0)).getIntNBT("pagePersival") - 1));
             return;
           case "arrowRight":
             e.setCancelled(true);
-            e.getWhoClicked().openInventory(plugin.abyssInv.get(new ItemIgnotus(e.getWhoClicked().getOpenInventory().getItem(0)).getIntNBT("pagePersival") + 1));
+            e.getWhoClicked().openInventory(plugin.abyssInv.get(new IgnotusItem(e.getWhoClicked().getOpenInventory().getItem(0)).getIntNBT("pagePersival") + 1));
             return;
           case "blank":
             e.setCancelled(true);
@@ -58,9 +58,9 @@ public class ClickInvHandler implements Listener {
       }
 
       // Interact Inventory Click
-      else if(new ItemIgnotus(e.getWhoClicked().getOpenInventory().getItem(0)).getStringNBT("inventory") == "interactPersival") {
-        ItemIgnotus item = new ItemIgnotus(e.getCurrentItem());
-        Player player2 = Bukkit.getPlayer(UUID.fromString(new ItemIgnotus(e.getWhoClicked().getOpenInventory().getItem(0)).getStringNBT("p2")));
+      else if(new IgnotusItem(e.getWhoClicked().getOpenInventory().getItem(0)).getStringNBT("inventory") == "interactPersival") {
+        IgnotusItem item = new IgnotusItem(e.getCurrentItem());
+        Player player2 = Bukkit.getPlayer(UUID.fromString(new IgnotusItem(e.getWhoClicked().getOpenInventory().getItem(0)).getStringNBT("p2")));
 
         switch (item.getStringNBT("persiId")) {
           case "profile":
@@ -164,7 +164,7 @@ public class ClickInvHandler implements Listener {
   }
 
 
-  private ItemIgnotus addLore(ItemIgnotus item) {
+  private IgnotusItem addLore(IgnotusItem item) {
     List<String> lore;
     if(item.getLore() == null)
       lore = new ArrayList<>();
@@ -174,7 +174,7 @@ public class ClickInvHandler implements Listener {
     item.setLore(lore, true, false, null);
     return item;
   }
-  private ItemIgnotus removeLore(ItemIgnotus item) {
+  private IgnotusItem removeLore(IgnotusItem item) {
     List<String> lore = item.getLore();
     for(int i = 0; i < config.getStringList("items.gift.lore-item").size(); i++) {
       lore.remove(lore.size() - 1);
@@ -184,7 +184,7 @@ public class ClickInvHandler implements Listener {
     return item;
   }
   private ItemStack getConduit(Player player1, Player player2) {
-    ItemIgnotus conduit = new ItemIgnotus(Material.CONDUIT, 1);
+    IgnotusItem conduit = new IgnotusItem(Material.CONDUIT, 1);
     conduit.setStringNBT("persiId", "conduit");
     conduit.setStringNBT("isConduit", "yes");
     conduit.setStringNBT("blocked", "yes");
@@ -195,7 +195,7 @@ public class ClickInvHandler implements Listener {
     return conduit;
   }
   private boolean checkItem(ItemStack item) {
-    return item != null && item.getType() != Material.AIR && new ItemIgnotus(item).getStringNBT("inventory") != null;
+    return item != null && item.getType() != Material.AIR && new IgnotusItem(item).getStringNBT("inventory") != null;
   }
 
 }

@@ -1,11 +1,10 @@
 package me.thekuba.handlers;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
 
 import me.thekuba.Ignotus;
-import me.thekuba.items.ItemIgnotus;
+import me.thekuba.IgnotusItem;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -33,11 +32,11 @@ public class CloseInvHandler implements Listener {
       return;
 
     // Interact Inventory Close
-    if ((new ItemIgnotus(e.getInventory().getItem(0))).getStringNBT("inventory").equals("interactPersival")
-            && (new ItemIgnotus(e.getInventory().getItem(37))).getStringNBT("isConduit").equals("no")) {
+    if ((new IgnotusItem(e.getInventory().getItem(0))).getStringNBT("inventory").equals("interactPersival")
+            && (new IgnotusItem(e.getInventory().getItem(37))).getStringNBT("isConduit").equals("no")) {
 
-      Player player = Bukkit.getPlayer(UUID.fromString((new ItemIgnotus(e.getInventory().getItem(0))).getStringNBT("p1")));
-      ItemIgnotus item = new ItemIgnotus(e.getInventory().getItem(37));
+      Player player = Bukkit.getPlayer(UUID.fromString((new IgnotusItem(e.getInventory().getItem(0))).getStringNBT("p1")));
+      IgnotusItem item = new IgnotusItem(e.getInventory().getItem(37));
 
       if (item.getStringNBT("hasFlagPersival") == "no")
         item.removeFlag(ItemFlag.HIDE_ATTRIBUTES); 
@@ -63,6 +62,6 @@ public class CloseInvHandler implements Listener {
 
 
   private boolean checkItem(ItemStack item) {
-    return item != null && item.getType() != Material.AIR && new ItemIgnotus(item).getStringNBT("inventory") != null;
+    return item != null && item.getType() != Material.AIR && new IgnotusItem(item).getStringNBT("inventory") != null;
   }
 }

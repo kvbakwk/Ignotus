@@ -20,7 +20,7 @@ public class IgnotusExpansion extends PlaceholderExpansion {
   }
   @NotNull
   public String getVersion() {
-    return "1.0.0";
+    return "1.1";
   }
   public String getRequiredPlugin() {
     return "Ignotus";

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.thekuba.Ignotus;
-import me.thekuba.items.ItemIgnotus;
+import me.thekuba.IgnotusItem;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -70,7 +70,7 @@ public class AbyssInventory {
   }
   
   private List<ItemStack> getItems(int page) {
-    ItemIgnotus arrowRight = new ItemIgnotus(Material.TIPPED_ARROW);
+    IgnotusItem arrowRight = new IgnotusItem(Material.TIPPED_ARROW);
     arrowRight.setName(config.getString("abyss.arrow-right.name"), true, false, null);
     arrowRight.setLore(config.getStringList("abyss.arrow-right.lore"), true, false, null);
     arrowRight.addFlag(ItemFlag.HIDE_POTION_EFFECTS);
@@ -78,7 +78,7 @@ public class AbyssInventory {
     arrowRight.setStringNBT("persiId", "arrowRight");
     arrowRight.setStringNBT("blocked", "yes");
 
-    ItemIgnotus arrowLeft = new ItemIgnotus(Material.TIPPED_ARROW);
+    IgnotusItem arrowLeft = new IgnotusItem(Material.TIPPED_ARROW);
     arrowLeft.setName(config.getString("abyss.arrow-left.name"), true, false, null);
     arrowLeft.setLore(config.getStringList("abyss.arrow-left.lore"), true, false, null);
     arrowLeft.addFlag(ItemFlag.HIDE_POTION_EFFECTS);
@@ -86,7 +86,7 @@ public class AbyssInventory {
     arrowLeft.setStringNBT("persiId", "arrowLeft");
     arrowLeft.setStringNBT("blocked", "yes");
 
-    ItemIgnotus blank = ItemIgnotus.Blank(Material.valueOf(config.getString("items.blank.material").toUpperCase()));
+    IgnotusItem blank = IgnotusItem.Blank(Material.valueOf(config.getString("items.blank.material").toUpperCase()));
     blank.setStringNBT("inventory", "abyssPersival");
     blank.setIntNBT("pagePersival", page);
 

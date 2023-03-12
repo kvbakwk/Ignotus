@@ -1,6 +1,6 @@
 groups:
   root:
-    prefix: "&8[&4ROOT&8] &4"
+    prefix: "&8[&4Owner&8] &4"
     player-name: "%player_name%"
     suffix: ""
   admin:
@@ -20,12 +20,12 @@ groups:
     player-name: "%player_name%"
     suffix: ""
   default:
-    prefix: "&a"
+    prefix: "&e"
     player-name: "%player_name%"
-    suffix: ""
+    suffix: " &7:P"
 tablist:
   root:
-    prefix: "&8[&4&lROOT&8] "
+    prefix: "&8[&4&lOwner&8] "
     player-name: "&4&l%player_name%"
     suffix: ""
     sort: "1"
@@ -33,24 +33,24 @@ tablist:
     prefix: "&8[&c&lAdmin&8] &c&l"
     player-name: "%player_name%"
     suffix: ""
-    sort: "4"
+    sort: "2"
   mod:
     prefix: "&8[&2&lModerator&8] &2&l"
     player-name: "%player_name%"
     suffix: ""
-    sort: "8"
+    sort: "3"
   chatmod:
     prefix: "&8[&3&lChatMod&8] &f"
     player-name: "%player_name%"
     suffix: ""
-    sort: "a"
+    sort: "4"
   vip:
     prefix: "&8[&e&lVIP&8] &f"
     player-name: "%player_name%"
     suffix: ""
-    sort: "g"
+    sort: "5"
   default:
-    prefix: "&8[&7Gracz&8] &f"
+    prefix: "&7I am &e"
     player-name: "%player_name%"
-    suffix: ""
-    sort: "h"
+    suffix: "&7, bro"
+    sort: "z"

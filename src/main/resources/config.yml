@@ -6,7 +6,8 @@
 #
 
 messages: # Support colors by '§' only. Sorry :<
-  help: "§e§lIgnotus §8- §7very useful minecraft plugin."
+  help:
+    - "§e§lIgnotus §8- §7very useful minecraft plugin."
   no-permission: "§4» §cYou do not have access to this command."
   error: "§c» §7The operation failed. Contact the administration."
   usage: "§cUse: §7/set {1} <nazwa>"
@@ -16,7 +17,7 @@ messages: # Support colors by '§' only. Sorry :<
   long: 30
   toolong: "§a» §7That name is too long!\n§a» §7The maximum number of characters is: §a{1}"
   success: "§a» §7Your {0}'s name just set to §a{1}§7."
-  success-admin: "§c» §7Value {0} §c{1} §7set to §c{2}§7."
+  success-admin: "§c» §7Name §c{1}§7's {0} set to §c{2}§7."
   gift-get: "§a» §7You just got an item from §a{1}§7!"
   gift-get-not-place: "§a» §7You have no space in your inventory, the gift has been dropped."
   gift-give: "§a» §7The item was successfully delivered to §a{1}§7!"
@@ -63,31 +64,31 @@ items: # Support colors by '&' !!! :>
     # {1} is nick of receiver.
     commandL: "is visit {1}"
     commandR: "is warp {1}"
-    name: "&7Teleportacja &2na Wyspę"
+    name: "&7Teleport to &2The Island"
     lore:
       - ''
-      - '&cAby móc, przenieść się na wyspę tego'
-      - '&cgracza, musi on mieć na swojej wyspie'
-      - '&ctabliczkę powitalną lub warpy.'
+      - '&cIn order to move to that player''s island,'
+      - '&cthat player must have a welcome or warps'
+      - '&con his island.'
       - ''
-      - '&2LPM, aby odwiedzić Wyspę gracza %player_name%.'
-      - '&2PPM, aby otworzyć Menu Warpów tej osoby.'
+      - '&2LPM, to visit %player_name%''s Island.'
+      - '&2PPM, to open that player''s Warp Menu.'
   item2:
     # If command is "", no commands.
     # {1} is nick of receiver.
     commandL: "is coop {1}"
     commandR: "is perms {1}"
-    name: "&7Zaufaj graczu &6%player_name%"
+    name: "&7Trust player &6%player_name%"
     lore:
       - ''
-      - '&7Robiąc gracza zaufanym, dajesz mu tymczasowy'
-      - '&7dostęp do Twojej wyspy, który kończy się'
-      - '&7wraz z wyjściem jego, wszystkich członków'
-      - '&7Twojej wyspy lub wyrzuceniu go za pomocą'
-      - '&7komendy &e/is uncoop %player_name%'
+      - '&7By making a player trusted, you give them'
+      - '&7temporary access to your island, which'
+      - '&7ends when he, all members of your island'
+      - '&7leave, or you kick them with command'
+      - '&e/is uncoop %player_name%'
       - ''
-      - '&6LPM, aby zaufać temu graczowi.'
-      - '&6PPM, aby zmienić uprawnienia tylko dla tego gracza.'
+      - '&6LPM, to trust this player.'
+      - '&6PPM, to change permissions for that player only.'
   gift:
     # In seconds
     cooldown: 10
@@ -96,8 +97,8 @@ items: # Support colors by '&' !!! :>
       - ''
       - '&7Do you want to give this player something?'
       - '&7Just click on the desired item in your'
-      - '&7inventory and then confirm the gift'
-      - '&7by shift-click on it.'
+      - '&7inventory and then confirm the gift by'
+      - '&eshift-click &7on it.'
       - ''
       - '&eClick on an item in your inventory.'
     lore-item:
@@ -121,82 +122,90 @@ items: # Support colors by '&' !!! :>
       - ''
       - '&7To set your accounts, use the &3/set &7command.'
     # This is the text that displays if someone of media doesn't have a name set.
-    if-empty: ""
+    if-empty: "&8Unknown"
   blank:
     name: " "
     lore: []
     amount: 1
     material: "GRAY_STAINED_GLASS_PANE"
+
 nametags:
   enable: true
+
 interact:
   enable: true
   antypvptime: 10
+
 abyss:
   enable: true
   title: "                &3&lAbyss"
-  interval: 120
+  interval: 300
   lookable: 0
   timer:
+    - 120
     - 60
     - 10
   arrow-right:
-    name: "&aNastępna Strona"
+    name: "&aNext Page"
     lore: []
   arrow-left:
-    name: "&cPoprzednia Strona"
+    name: "&cPrevious Page"
     lore: []
   bossbar:
     # set before and after empty for disable bossbar
-    time: 10
-    before: "§7Itemy z ziemi zostaną usunięte za:"
-    after: "§7Usunięto §3{1} §7itemów z ziemi! Trafiły one do §3/otchlan§7i."
+    time: 30
+    before: "§7Items on the ground will be removed in"
+    after: "§7Removed §3{1} §7items from the ground! They fell into the §3/abyss§7."
+
 tablist:
   enable: true
   # in ticks, 20 ticks = 1 second
   refreshFrequency: 1
   frequency: 5
   headers:
-    - "&e&lIgnotus\n\n&7Welcome &e%player_name%&7!\n\n&7--------------------"
-    - "&e&lIgnotus\n\n&7Welcome &e%player_name%&7!\n\n&e-&7-------------------"
-    - "&e&lIgnotus\n\n&7Welcome &e%player_name%&7!\n\n&7-&e-&7------------------"
-    - "&e&lIgnotus\n\n&7Welcome &e%player_name%&7!\n\n&7--&e-&7-----------------"
-    - "&e&lIgnotus\n\n&7Welcome &e%player_name%&7!\n\n&7---&e-&7----------------"
-    - "&e&lIgnotus\n\n&7Welcome &e%player_name%&7!\n\n&7----&e-&7---------------"
-    - "&e&lIgnotus\n\n&7Welcome &e%player_name%&7!\n\n&7-----&e-&7--------------"
-    - "&e&lIgnotus\n\n&7Welcome &e%player_name%&7!\n\n&7------&e-&7-------------"
-    - "&e&lIgnotus\n\n&7Welcome &e%player_name%&7!\n\n&7-------&e-&7------------"
-    - "&e&lIgnotus\n\n&7Welcome &e%player_name%&7!\n\n&7--------&e-&7-----------"
-    - "&e&lIgnotus\n\n&7Welcome &e%player_name%&7!\n\n&7---------&e-&7----------"
-    - "&e&lIgnotus\n\n&7Welcome &e%player_name%&7!\n\n&7----------&e-&7---------"
-    - "&e&lIgnotus\n\n&7Welcome &e%player_name%&7!\n\n&7-----------&e-&7--------"
-    - "&e&lIgnotus\n\n&7Welcome &e%player_name%&7!\n\n&7------------&e-&7-------"
-    - "&e&lIgnotus\n\n&7Welcome &e%player_name%&7!\n\n&7-------------&e-&7------"
-    - "&e&lIgnotus\n\n&7Welcome &e%player_name%&7!\n\n&7--------------&e-&7-----"
-    - "&e&lIgnotus\n\n&7Welcome &e%player_name%&7!\n\n&7---------------&e-&7----"
-    - "&e&lIgnotus\n\n&7Welcome &e%player_name%&7!\n\n&7----------------&e-&7---"
-    - "&e&lIgnotus\n\n&7Welcome &e%player_name%&7!\n\n&7-----------------&e-&7--"
-    - "&e&lIgnotus\n\n&7Welcome &e%player_name%&7!\n\n&7------------------&e-&7-"
-    - "&e&lIgnotus\n\n&7Welcome &e%player_name%&7!\n\n&7-------------------&e-"
+    - "&e&lIgnotus\n\n&7Wow &e%player_name%&7, you look great!\n&7I know, me too :)\n\n"
+    - "&e&lIgnotus\n\n&7Wow &e%player_name%&7, you look great!\n&7I know, me too :)\n\n"
+    - "&e&lIgnotus\n\n&7Wow &e%player_name%&7, you look great!\n&7I know, me too :)\n\n"
+    - "&e&lIgnotus\n\n&7Wow &e%player_name%&7, you look great!\n&7I know, me too :)\n\n"
+    - "&e&lIgnotus\n\n&7Wow &e%player_name%&7, you look great!\n&7I know, me too :)\n\n"
+    - "&e&lIgnotus\n\n&7Wow &e%player_name%&7, you look great!\n&7I know, me too :)\n\n"
+    - "&e&lIgnotus\n\n&7Wow &e%player_name%&7, you look great!\n&7I know, me too :)\n\n"
+    - "&e&lIgnotus\n\n&7Wow &e%player_name%&7, you look great!\n&7I know, me too :)\n\n"
+    - "&e&lIgnotus\n\n&7Wow &e%player_name%&7, you look great!\n&eI &7know, me too :)\n\n"
+    - "&e&lIgnotus\n\n&7Wow &e%player_name%&7, you look great!\n&7I &eknow&7, me too :)\n\n"
+    - "&e&lIgnotus\n\n&7Wow &e%player_name%&7, you look great!\n&7I &eknow&7, me too :)\n\n"
+    - "&e&lIgnotus\n\n&7Wow &e%player_name%&7, you look great!\n&7I &eknow&7, me too :)\n\n"
+    - "&e&lIgnotus\n\n&7Wow &e%player_name%&7, you look great!\n&7I &eknow&7, me too :)\n\n"
+    - "&e&lIgnotus\n\n&7Wow &e%player_name%&7, you look great!\n&7I &eknow&7, me too :)\n\n"
+    - "&e&lIgnotus\n\n&7Wow &e%player_name%&7, you look great!\n&7I know, &eme &7too :)\n\n"
+    - "&e&lIgnotus\n\n&7Wow &e%player_name%&7, you look great!\n&7I know, me &etoo &7:)\n\n"
+    - "&e&lIgnotus\n\n&7Wow &e%player_name%&7, you look great!\n&7I know, me &etoo &7:)\n\n"
+    - "&e&lIgnotus\n\n&7Wow &e%player_name%&7, you look great!\n&7I know, me &etoo &7:)\n\n"
+    - "&e&lIgnotus\n\n&7Wow &e%player_name%&7, you look great!\n&7I know, me too &e:)\n\n"
+    - "&e&lIgnotus\n\n&7Wow &e%player_name%&7, you look great!\n&7I know, me too &e:)\n\n"
+    - "&e&lIgnotus\n\n&7Wow &e%player_name%&7, you look great!\n&7I know, me too &e:)\n\n"
+    - "&e&lIgnotus\n\n&7Wow &e%player_name%&7, you look great!\n&7I know, me too &e:)\n\n"
+    - "&e&lIgnotus\n\n&7Wow &e%player_name%&7, you look great!\n&7I know, me too &e:)\n\n"
+    - "&e&lIgnotus\n\n&7Wow &e%player_name%&7, you look great!\n&7I know, me too &e:)\n\n"
+    - "&e&lIgnotus\n\n&7Wow &e%player_name%&7, you look great!\n&7I know, me too &e:)\n\n"
+    - "&e&lIgnotus\n\n&7Wow &e%player_name%&7, you look great!\n&7I know, me too &e:)\n\n"
+    - "&e&lIgnotus\n\n&7Wow &e%player_name%&7, you look great!\n&7I know, me too &e:)\n\n"
+    - "&e&lIgnotus\n\n&7Wow &e%player_name%&7, you look great!\n&7I know, me too &e:)\n\n"
+    - "&e&lIgnotus\n\n&7Wow &e%player_name%&7, you look great!\n&7I know, me too &e:)\n\n"
+    - "&e&lIgnotus\n\n&7Wow &e%player_name%&7, you look great!\n&7I know, me too &e:)\n\n"
+    - "&e&lIgnotus\n\n&7Wow &e%player_name%&7, you look great!\n&7I know, me too &e:)\n\n"
+    - "&e&lIgnotus\n\n&7Wow &e%player_name%&7, you look great!\n&7I know, me too &e:)\n\n"
+    - "&e&lIgnotus\n\n&7Wow &e%player_name%&7, you look great!\n&7I know, me too &e:)\n\n"
+    - "&e&lIgnotus\n\n&7Wow &e%player_name%&7, you look great!\n&7I know, me too &e:)\n\n"
+    - "&e&lIgnotus\n\n&7Wow &e%player_name%&7, you look great!\n&7I know, me too &e:)\n\n"
+    - "&e&lIgnotus\n\n&7Wow &e%player_name%&7, you look great!\n&7I know, me too &e:)\n\n"
+    - "&e&lIgnotus\n\n&7Wow &e%player_name%&7, you look great!\n&7I know, me too &e:)\n\n"
+    - "&e&lIgnotus\n\n&7Wow &e%player_name%&7, you look great!\n&7I know, me too &e:)\n\n"
+    - "&e&lIgnotus\n\n&7Wow &e%player_name%&7, you look great!\n&7I know, me too &e:)\n\n"
+    - "&e&lIgnotus\n\n&7Wow &e%player_name%&7, you look great!\n&7I know, me too &e:)\n\n"
+    - "&e&lIgnotus\n\n&7Wow &e%player_name%&7, you look great!\n&7I know, me too &e:)\n\n"
+    - "&e&lIgnotus\n\n&7Wow &e%player_name%&7, you look great!\n&7I know, me too &e:)\n\n"
+    - "&e&lIgnotus\n\n&7Wow &e%player_name%&7, you look great!\n&7I know, me too :)\n\n"
+    - "&e&lIgnotus\n\n&7Wow &e%player_name%&7, you look great!\n&7I know, me too :)\n\n"
   footers:
-    - "&7--------------------\n\n&7Online: &e%server_online%"
-    - "&e-&7-------------------\n\n&7Online: &e%server_online%"
-    - "&7-&e-&7------------------\n\n&7Online: &e%server_online%"
-    - "&7--&e-&7-----------------\n\n&7Online: &e%server_online%"
-    - "&7---&e-&7----------------\n\n&7Online: &e%server_online%"
-    - "&7----&e-&7---------------\n\n&7Online: &e%server_online%"
-    - "&7-----&e-&7--------------\n\n&7Online: &e%server_online%"
-    - "&7------&e-&7-------------\n\n&7Online: &e%server_online%"
-    - "&7-------&e-&7------------\n\n&7Online: &e%server_online%"
-    - "&7--------&e-&7-----------\n\n&7Online: &e%server_online%"
-    - "&7---------&e-&7----------\n\n&7Online: &e%server_online%"
-    - "&7----------&e-&7---------\n\n&7Online: &e%server_online%"
-    - "&7-----------&e-&7--------\n\n&7Online: &e%server_online%"
-    - "&7------------&e-&7-------\n\n&7Online: &e%server_online%"
-    - "&7-------------&e-&7------\n\n&7Online: &e%server_online%"
-    - "&7--------------&e-&7-----\n\n&7Online: &e%server_online%"
-    - "&7---------------&e-&7----\n\n&7Online: &e%server_online%"
-    - "&7----------------&e-&7---\n\n&7Online: &e%server_online%"
-    - "&7-----------------&e-&7--\n\n&7Online: &e%server_online%"
-    - "&7------------------&e-&7-\n\n&7Online: &e%server_online%"
-    - "&7-------------------&e-\n\n&7Online: &e%server_online%"
+    - "                                                  \n\n&7Online: &e%server_online% &7Tps: &e%server_tps_1_colored%"
