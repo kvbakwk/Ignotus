@@ -163,7 +163,7 @@ public class PlayerJoinHandler implements Listener {
   }
   
   private String getStatus(String status, Player color) {
-    if (color.hasPermission("persival.status.color"))
+    if (color.hasPermission("ignotus.status.color"))
       return ChatColor.translateAlternateColorCodes('&', status); 
     return status;
   }

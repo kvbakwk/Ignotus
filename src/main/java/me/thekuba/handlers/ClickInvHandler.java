@@ -36,20 +36,20 @@ public class ClickInvHandler implements Listener {
       Player player = (Player) e.getWhoClicked();
 
       // Abyss Inventory Click
-      if(new IgnotusItem(e.getWhoClicked().getOpenInventory().getItem(0)).getStringNBT("inventory") == "abyssPersival") {
+      if(new IgnotusItem(e.getWhoClicked().getOpenInventory().getItem(0)).getStringNBT("inventory").equals("abyssIgnotus")) {
         IgnotusItem item = new IgnotusItem(e.getCurrentItem());
-
-        switch (item.getStringNBT("persiId")) {
+        switch (item.getStringNBT("ignotusId")) {
           case "arrowLeft":
             e.setCancelled(true);
-            e.getWhoClicked().openInventory(plugin.abyssInv.get(new IgnotusItem(e.getWhoClicked().getOpenInventory().getItem(0)).getIntNBT("pagePersival") - 1));
+            e.getWhoClicked().openInventory(plugin.abyssInv.get(new IgnotusItem(e.getWhoClicked().getOpenInventory().getItem(0)).getIntNBT("pageIgnotus") - 1));
             return;
           case "arrowRight":
             e.setCancelled(true);
-            e.getWhoClicked().openInventory(plugin.abyssInv.get(new IgnotusItem(e.getWhoClicked().getOpenInventory().getItem(0)).getIntNBT("pagePersival") + 1));
+            e.getWhoClicked().openInventory(plugin.abyssInv.get(new IgnotusItem(e.getWhoClicked().getOpenInventory().getItem(0)).getIntNBT("pageIgnotus") + 1));
             return;
           case "blank":
             e.setCancelled(true);
+            System.out.println("sss");
             return;
           default:
             if(e.getWhoClicked().getInventory().equals(e.getClickedInventory()))
@@ -58,11 +58,11 @@ public class ClickInvHandler implements Listener {
       }
 
       // Interact Inventory Click
-      else if(new IgnotusItem(e.getWhoClicked().getOpenInventory().getItem(0)).getStringNBT("inventory") == "interactPersival") {
+      else if(new IgnotusItem(e.getWhoClicked().getOpenInventory().getItem(0)).getStringNBT("inventory").equals("interactIgnotus")) {
         IgnotusItem item = new IgnotusItem(e.getCurrentItem());
         Player player2 = Bukkit.getPlayer(UUID.fromString(new IgnotusItem(e.getWhoClicked().getOpenInventory().getItem(0)).getStringNBT("p2")));
 
-        switch (item.getStringNBT("persiId")) {
+        switch (item.getStringNBT("ignotusId")) {
           case "profile":
             if(e.getClick().isLeftClick() && !config.getString("items.profile.commandL").equals(""))
               player.performCommand(config.getString("items.profile.commandL").replace("{1}", player2.getName()));
@@ -105,7 +105,7 @@ public class ClickInvHandler implements Listener {
                 player2.sendMessage(config.getString("messages.gift-get").replace("{1}", player.getName()));
                 if (item.getStringNBT("hasFlagPersival") == "no")
                   item.removeFlag(ItemFlag.HIDE_ATTRIBUTES);
-                item.removeNBT("persiId");
+                item.removeNBT("ignotusId");
                 item.removeNBT("isConduit");
                 item.removeNBT("PersiItem");
                 item.removeNBT("hasFlagPersival");
@@ -125,7 +125,7 @@ public class ClickInvHandler implements Listener {
                 e.setCancelled(true);
                 if (item.getStringNBT("hasFlagPersival") == "no")
                   item.removeFlag(ItemFlag.HIDE_ATTRIBUTES);
-                item.removeNBT("persiId");
+                item.removeNBT("ignotusId");
                 item.removeNBT("isConduit");
                 item.removeNBT("PersiItem");
                 item.removeNBT("hasFlagPersival");
@@ -142,7 +142,7 @@ public class ClickInvHandler implements Listener {
           default:
             e.setCancelled(true);
             player.getInventory().setItem(e.getSlot(), new ItemStack(Material.AIR));
-            item.setStringNBT("persiId", "conduit");
+            item.setStringNBT("ignotusId", "conduit");
             item.setStringNBT("isConduit", "no");
             if(item.hasFlag(ItemFlag.HIDE_ATTRIBUTES))
               item.setStringNBT("hasFlagPersival", "yes");
@@ -185,7 +185,7 @@ public class ClickInvHandler implements Listener {
   }
   private ItemStack getConduit(Player player1, Player player2) {
     IgnotusItem conduit = new IgnotusItem(Material.CONDUIT, 1);
-    conduit.setStringNBT("persiId", "conduit");
+    conduit.setStringNBT("ignotusId", "conduit");
     conduit.setStringNBT("isConduit", "yes");
     conduit.setStringNBT("blocked", "yes");
     conduit.setStringNBT("p1", player1.getUniqueId().toString());

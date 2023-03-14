@@ -70,7 +70,7 @@ public class IgnotusExpansion extends PlaceholderExpansion {
         return this.plugin.getConfig().getString("items.media.if-empty"); 
       return discord;
     } 
-    if (params.equalsIgnoreCase("abyss")) {
+    if (params.equalsIgnoreCase("abyss3")) {
       if (this.plugin.clear != null) {
         String time = Integer.toString(this.plugin.clear.getTime());
         if (time.length() == 3)
@@ -80,7 +80,13 @@ public class IgnotusExpansion extends PlaceholderExpansion {
         return "  " + time;
       } 
       return "Abyss is disabled.";
-    } 
+    }
+    if (params.equalsIgnoreCase("abyss")) {
+      if (this.plugin.clear != null) {
+        return Integer.toString(this.plugin.clear.getTime());
+      }
+      return "Abyss is disabled.";
+    }
     if (params.equalsIgnoreCase("vanish")) {
       int playersOnline = Bukkit.getServer().getOnlinePlayers().size();
       int vanishPlayers = VanishAPI.getInvisiblePlayers().size();

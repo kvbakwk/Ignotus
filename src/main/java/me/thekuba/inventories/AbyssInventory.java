@@ -75,7 +75,7 @@ public class AbyssInventory {
     arrowRight.setLore(config.getStringList("abyss.arrow-right.lore"), true, false, null);
     arrowRight.addFlag(ItemFlag.HIDE_POTION_EFFECTS);
     arrowRight.setPotion(PotionType.LUCK);
-    arrowRight.setStringNBT("persiId", "arrowRight");
+    arrowRight.setStringNBT("ignotusId", "arrowRight");
     arrowRight.setStringNBT("blocked", "yes");
 
     IgnotusItem arrowLeft = new IgnotusItem(Material.TIPPED_ARROW);
@@ -83,12 +83,12 @@ public class AbyssInventory {
     arrowLeft.setLore(config.getStringList("abyss.arrow-left.lore"), true, false, null);
     arrowLeft.addFlag(ItemFlag.HIDE_POTION_EFFECTS);
     arrowLeft.setPotion(PotionType.STRENGTH);
-    arrowLeft.setStringNBT("persiId", "arrowLeft");
+    arrowLeft.setStringNBT("ignotusId", "arrowLeft");
     arrowLeft.setStringNBT("blocked", "yes");
 
     IgnotusItem blank = IgnotusItem.Blank(Material.valueOf(config.getString("items.blank.material").toUpperCase()));
-    blank.setStringNBT("inventory", "abyssPersival");
-    blank.setIntNBT("pagePersival", page);
+    blank.setStringNBT("inventory", "abyssIgnotus");
+    blank.setIntNBT("pageIgnotus", page);
 
     List<ItemStack> items = new ArrayList<>();
     items.add(arrowRight);

@@ -176,7 +176,7 @@ public class IgnotusItem extends ItemStack {
     item.setName(name, true, false, (Player)null);
     if (lore.size() != 0)
       item.setLore(lore, true, false, (Player)null); 
-    item.setStringNBT("persiId", "blank");
+    item.setStringNBT("ignotusId", "blank");
     item.setStringNBT("blocked", "yes");
     return item;
   }
