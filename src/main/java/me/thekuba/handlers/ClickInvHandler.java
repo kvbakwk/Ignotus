@@ -16,13 +16,14 @@ import org.bukkit.inventory.ItemStack;
 
 public class ClickInvHandler implements Listener {
   private final Ignotus plugin;
-  private final FileConfiguration config;
+  private final FileConfiguration config, messagesConfig;
 
   private final Map<Player, Long> cooldown = new HashMap<>();
 
   public ClickInvHandler(Ignotus plugin) {
       this.plugin = plugin;
       this.config = plugin.getConfig();
+      this.messagesConfig = plugin.messagesFile.getConfig();
       Bukkit.getPluginManager().registerEvents(this, plugin);
   }
   
@@ -98,12 +99,15 @@ public class ClickInvHandler implements Listener {
               if(e.getClick().isShiftClick() && e.getClick().isLeftClick()) {
                 e.setCancelled(true);
                 if(cooldown.get(player) != null && cooldown.get(player) > System.currentTimeMillis()) {
-                  player.sendMessage(config.getString("messages.gift-cooldown").replace("{1}", String.valueOf((cooldown.get(player) - System.currentTimeMillis()) / 1000L)));
+                  player.sendMessage(plugin.colorCodes(messagesConfig.getString("gift.cooldown")
+                          .replace("{1}", String.valueOf((cooldown.get(player) - System.currentTimeMillis()) / 1000L))));
                   return;
                 }
-                player.sendMessage(config.getString("messages.gift-give").replace("{1}", player2.getName()));
-                player2.sendMessage(config.getString("messages.gift-get").replace("{1}", player.getName()));
-                if (item.getStringNBT("hasFlagPersival") == "no")
+                player.sendMessage(plugin.colorCodes(messagesConfig.getString("gift.give")
+                        .replace("{1}", player2.getName())));
+                player2.sendMessage(plugin.colorCodes(messagesConfig.getString("gift.get")
+                        .replace("{1}", player.getName())));
+                if (item.getStringNBT("hasFlagPersival").equals("no"))
                   item.removeFlag(ItemFlag.HIDE_ATTRIBUTES);
                 item.removeNBT("ignotusId");
                 item.removeNBT("isConduit");
@@ -112,7 +116,7 @@ public class ClickInvHandler implements Listener {
                 item.removeNBT("hasLorePersival");
                 item = removeLore(item);
                 if(player2.getInventory().firstEmpty() == -1) {
-                  player2.sendMessage(config.getString("messages.gift-get-not-place"));
+                  player2.sendMessage(plugin.colorCodes(messagesConfig.getString("gift.get-not-place")));
                   player2.getWorld().dropItem(player2.getLocation(), item);
                 } else
                   player2.getInventory().addItem(item);
@@ -123,7 +127,7 @@ public class ClickInvHandler implements Listener {
                   cooldown.put(player, System.currentTimeMillis() + (this.config.getInt("items.gift.cooldown") * 1000L));
               } else {
                 e.setCancelled(true);
-                if (item.getStringNBT("hasFlagPersival") == "no")
+                if (item.getStringNBT("hasFlagPersival").equals("no"))
                   item.removeFlag(ItemFlag.HIDE_ATTRIBUTES);
                 item.removeNBT("ignotusId");
                 item.removeNBT("isConduit");
@@ -179,7 +183,6 @@ public class ClickInvHandler implements Listener {
     for(int i = 0; i < config.getStringList("items.gift.lore-item").size(); i++) {
       lore.remove(lore.size() - 1);
     }
-//    lore.removeAll(config.getStringList("items.gift.lore-item"));
     item.setLore(lore, false, false, null);
     return item;
   }

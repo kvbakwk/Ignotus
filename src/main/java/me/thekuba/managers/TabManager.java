@@ -30,7 +30,7 @@ public class TabManager {
 
         Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
 
-            int counter = 0, countR = 0, countH = 0, countF = 0;
+            int counter = 0, countH = 0, countF = 0;
 
             @Override
             public void run() {

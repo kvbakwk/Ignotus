@@ -1,0 +1,32 @@
+help:
+  - "&e&lIgnotus &8- &7very useful minecraft plugin."
+no-permission: "&4» &cYou do not have access to this command."
+error: "&c» &7The operation failed. Contact the administration."
+prefix: "&a» "
+admin-prefix: "&c» "
+abyss-prefix: "&3» "
+commands:
+  usage:
+    schema: "&cUse: &7{0}"
+    set: "/set {0} <nazwa>"
+    setadmin: "/set {0} {1} <nazwa>"
+  invalid-args:
+    set-unknown-media: "&a» &7You can only set names of:\n&a» &aInstagram&7, &aYouTube&7, &aTwitch&7 and &aDiscord"
+    set-media-name-toolong: "&a» &7That name is too long!\n&a» &7The maximum number of characters is: &a{1}"
+  success:
+    set: "&a» &7Your {0}'s name just set to &a{1}&7."
+    setadmin: "&c» &7Name &c{1}&7's {0} set to &c{2}&7."
+gifts:
+  get: "&a» &7You just got an item from &a{1}&7!"
+  get-not-place: "&a» &7You have no space in your inventory, the gift has been dropped."
+  give: "&a» &7The item was successfully delivered to &a{1}&7!"
+  cooldown: "&a» &7You can give the next gift only in &a{1} &7seconds."
+  player-quit: "&a» &7Sorry, this player has left the server,\n&a» &7please wait until he comes back."
+abyss:
+  # Use {1} for amount of cleared items on the ground.
+  open: "&3» &7Removed &3{1} &7items from the ground! They fell into the &3/abyss&7."
+  timer: "&3» &7Items on the ground will be removed in &3{1} &7seconds."
+  last3msg: "&3» &7{1}"
+  # You may use {1} for the remaining time.
+  closed: "&3» &7The &3abyss &7is closed for now."
+  is-closing: "&3» &7The &3/abyss &7has just been closed."

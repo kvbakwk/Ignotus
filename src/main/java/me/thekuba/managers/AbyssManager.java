@@ -21,7 +21,7 @@ import org.bukkit.plugin.Plugin;
 
 public class AbyssManager {
   private final Ignotus plugin;
-  private final FileConfiguration config;
+  private final FileConfiguration config, messagesConfig;
 
   private int x, y, count, interval, size;
   private double progress, time;
@@ -33,6 +33,7 @@ public class AbyssManager {
   public AbyssManager(Ignotus plugin) {
     this.plugin = plugin;
     this.config = plugin.getConfig();
+    this.messagesConfig = plugin.messagesFile.getConfig();
     List<World> worlds = Bukkit.getServer().getWorlds();
     aLoop(plugin, worlds);
   }
@@ -73,26 +74,30 @@ public class AbyssManager {
       // Chat messages
       {
               if (x == 0) {
-                if (!config.getString("messages.abyss-open").equals(""))
-                  Bukkit.broadcastMessage(config.getString("messages.abyss-open")
-                          .replace("{1}", Integer.toString(size)));
+                if (!messagesConfig.getString("abyss.open").equals(""))
+                  Bukkit.broadcastMessage(this.plugin.colorCodes(messagesConfig.getString("abyss.open")
+                          .replace("{1}", Integer.toString(size))));
               }
               for (int i = 0; i < (array.toArray()).length; i++) {
                 if (x == interval * 20 - array.get(i) * 20 &&
-                        !config.getString("messages.abyss-timer").equals(""))
-                  Bukkit.broadcastMessage(config.getString("messages.abyss-timer").replace("{1}", Integer.toString(array.get(i))));
+                        !messagesConfig.getString("abyss.timer").equals(""))
+                  Bukkit.broadcastMessage(this.plugin.colorCodes(messagesConfig.getString("abyss.timer")
+                          .replace("{1}", Integer.toString(array.get(i)))));
               }
               if (x == interval * 20 - 60
-                      && !config.getString("messages.abyss-last3msg").equals(""))
-                Bukkit.broadcastMessage(config.getString("messages.abyss-last3msg").replace("{1}", "3"));
+                      && !messagesConfig.getString("abyss.last3msg").equals(""))
+                Bukkit.broadcastMessage(this.plugin.colorCodes(config.getString("abyss.last3msg")
+                        .replace("{1}", "3")));
               if (x == interval * 20 - 40
-                      && !config.getString("messages.abyss-last3msg").equals(""))
-                Bukkit.broadcastMessage(config.getString("messages.abyss-last3msg").replace("{1}", "2"));
+                      && !messagesConfig.getString("abyss.last3msg").equals(""))
+                Bukkit.broadcastMessage(this.plugin.colorCodes(config.getString("abyss.last3msg")
+                        .replace("{1}", "2")));
               if (x == interval * 20 - 20
-                      && !config.getString("messages.abyss-last3msg").equals(""))
-                Bukkit.broadcastMessage(config.getString("messages.abyss-last3msg").replace("{1}", "1"));
+                      && !messagesConfig.getString("abyss.last3msg").equals(""))
+                Bukkit.broadcastMessage(this.plugin.colorCodes(config.getString("abyss.last3msg")
+                        .replace("{1}", "1")));
               if (x == config.getInt("abyss.lookable") * 20 && config.getInt("abyss.lookable") > 0)
-                Bukkit.broadcastMessage(config.getString("messages.abyss-isclosing"));
+                Bukkit.broadcastMessage(this.plugin.colorCodes(messagesConfig.getString("abyss.is-closing")));
       }
       // BossBar activity
       {

@@ -16,7 +16,7 @@ import org.bukkit.event.entity.EntityDamageEvent;
 public class DamageHandler implements Listener {
   private final FileConfiguration config;
 
-  private Map<Player, Long> delay = new HashMap<>();
+  private final Map<Player, Long> delay = new HashMap<>();
 
   
   public DamageHandler(Ignotus plugin) {

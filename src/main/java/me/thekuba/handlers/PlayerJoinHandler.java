@@ -6,8 +6,7 @@ import java.util.Map;
 import de.myzelyam.api.vanish.VanishAPI;
 import me.clip.placeholderapi.PlaceholderAPI;
 import me.thekuba.Ignotus;
-import me.thekuba.files.GroupsFile;
-import me.thekuba.files.PlayersFile;
+import me.thekuba.IgnotusFile;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
@@ -23,8 +22,8 @@ import org.jetbrains.annotations.NotNull;
 
 public class PlayerJoinHandler implements Listener {
   private final Ignotus plugin;
-  private final PlayersFile playersConfig;
-  private final GroupsFile groupsConfig;
+  private final IgnotusFile playersConfig;
+  private final IgnotusFile groupsConfig;
 
   private int x;
   private final Map<Player, ArmorStand[]> armorStands = new HashMap<>();
@@ -144,11 +143,10 @@ public class PlayerJoinHandler implements Listener {
             (armorStands.get(player))[0].teleport(player.getLocation().add(0.0D, 1.75D, 0.0D));
             (armorStands.get(player))[1].teleport(player.getLocation().add(0.0D, 1.75D, 0.0D));
           }
-          if (player.getGameMode().equals(GameMode.SPECTATOR) || VanishAPI.isInvisible(player) || player.isSneaking()) {
+          if (player.getGameMode().equals(GameMode.SPECTATOR) || VanishAPI.isInvisible(player) || player.isSneaking())
             (armorStands.get(player))[1].setCustomNameVisible(false);
-          } else {
+          else
             (armorStands.get(player))[1].setCustomNameVisible(true);
-          }
         }
       } else {
         armorStands.get(player)[0].remove();
@@ -175,8 +173,7 @@ public class PlayerJoinHandler implements Listener {
     prefix = ChatColor.translateAlternateColorCodes('&', PlaceholderAPI.setPlaceholders(player, prefix));
     name = ChatColor.translateAlternateColorCodes('&', PlaceholderAPI.setPlaceholders(player, name));
     suffix = ChatColor.translateAlternateColorCodes('&', PlaceholderAPI.setPlaceholders(player, suffix));
-    String all = prefix + name + suffix;
-    return all;
+    return prefix + name + suffix;
   }
   
   private void setTeam(Player player, Scoreboard score) {

@@ -1,19 +1,18 @@
 package me.thekuba;
 
+import me.thekuba.commands.*;
 import me.thekuba.handlers.*;
 import me.thekuba.inventories.AbyssInventory;
 import me.thekuba.managers.AbyssManager;
-import me.thekuba.managers.CommandManager;
 import me.thekuba.managers.TabManager;
 import me.thekuba.placeholders.IgnotusExpansion;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
-import me.thekuba.files.PlayersFile;
-import me.thekuba.files.GroupsFile;
 import net.milkbowl.vault.permission.Permission;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,10 +20,9 @@ import java.util.Objects;
 
 public final class Ignotus extends JavaPlugin implements Listener {
 
-    public AbyssManager clear;
-    public PlayersFile playersFile;
-    public GroupsFile groupsFile;
+    public IgnotusFile configFile, playersFile, groupsFile, messagesFile;
     public DamageHandler pvp;
+    public AbyssManager clear;
     public static Permission perms;
     public List<Inventory> abyssInv = new ArrayList<>();
     public PlayerJoinHandler playerJoin;
@@ -32,16 +30,11 @@ public final class Ignotus extends JavaPlugin implements Listener {
 
     @Override
     public void onEnable() {
-        this.playersFile = new PlayersFile(this);
-        this.groupsFile = new GroupsFile(this);
-        saveDefaultConfig();
+        this.configFile = new IgnotusFile(this, "config");
+        this.playersFile = new IgnotusFile(this, "players");
+        this.groupsFile = new IgnotusFile(this, "groups");
+        this.messagesFile = new IgnotusFile(this, "messages");
 
-        if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") == null) {
-            toConsoleWarn("You don't have PlaceholderAPI! This plugin is required.");
-            Bukkit.getPluginManager().disablePlugin(this);
-        } else {
-            (new IgnotusExpansion()).register();
-        }
         if (Bukkit.getPluginManager().getPlugin("NBTAPI") == null) {
             toConsoleWarn("You don't have NBTAPI! This plugin is required.");
             Bukkit.getPluginManager().disablePlugin(this);
@@ -51,16 +44,30 @@ public final class Ignotus extends JavaPlugin implements Listener {
             Bukkit.getPluginManager().disablePlugin(this);
         }
 
+
+        if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") == null) {
+            toConsoleWarn("You don't have PlaceholderAPI.");
+        } else {
+            (new IgnotusExpansion()).register();
+        }
+        if (Bukkit.getPluginManager().getPlugin("SuperVanish") == null) {
+            toConsoleWarn("You don't have SuperVanish.");
+        }
+
         setupPermissions();
 
-        new CommandManager(this);
+        getCommand("ignotus").setExecutor(new IgnotusCmd(this, "ignotus.cmd.ignotus"));
+        getCommand("abyss").setExecutor(new AbyssCmd(this, "ignotus.cmd.abyss"));
+        getCommand("self").setExecutor(new SelfCmd(this, "ignotus.cmd.self"));
+        getCommand("set").setExecutor(new SetCmd(this, "ignotus.cmd.set"));
+        getCommand("setadmin").setExecutor(new SetAdminCmd(this, "ignotus.cmd.admin.setadmin"));
 
         new PlayerClickHandler(this);
         new ClickInvHandler(this);
         new CloseInvHandler(this);
         new TabManager(this);
-        playerJoin = new PlayerJoinHandler(this);
 
+        this.playerJoin = new PlayerJoinHandler(this);
         this.pvp = new DamageHandler(this);
 
         if (getConfig().getBoolean("abyss.enable")) {
@@ -130,6 +137,9 @@ public final class Ignotus extends JavaPlugin implements Listener {
     }
     public static void toConsoleWarn(String msg) {
         Bukkit.getLogger().warning("[Ignotus]   " + msg);
+    }
+    public String colorCodes(String text) {
+        return ChatColor.translateAlternateColorCodes('&', text);
     }
 
     private boolean setupPermissions() {

@@ -38,9 +38,9 @@ public class CloseInvHandler implements Listener {
       Player player = Bukkit.getPlayer(UUID.fromString((new IgnotusItem(e.getInventory().getItem(0))).getStringNBT("p1")));
       IgnotusItem item = new IgnotusItem(e.getInventory().getItem(37));
 
-      if (item.getStringNBT("hasFlagPersival") == "no")
+      if (item.getStringNBT("hasFlagPersival").equals("no"))
         item.removeFlag(ItemFlag.HIDE_ATTRIBUTES); 
-      if (item.getStringNBT("hasLorePersival") == "yes") {
+      if (item.getStringNBT("hasLorePersival").equals("yes")) {
         List<String> loreItem = item.getLore();
         for (String ignored : this.config.getStringList("items.gift.lore-item"))
           loreItem.remove(loreItem.size() - 1);

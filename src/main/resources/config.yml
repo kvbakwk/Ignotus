@@ -5,32 +5,6 @@
 # Author: thekuba
 #
 
-messages: # Support colors by '§' only. Sorry :<
-  help:
-    - "§e§lIgnotus §8- §7very useful minecraft plugin."
-  no-permission: "§4» §cYou do not have access to this command."
-  error: "§c» §7The operation failed. Contact the administration."
-  usage: "§cUse: §7/set {1} <nazwa>"
-  usage-admin: "§7Use: §a/set {0} {1} <nazwa>"
-  unknown: "§a» §7You can only set names of:\n§a» §aInstagram§7, §aYouTube§7, §aTwitch§7 i §aDiscord"
-  player-quit: "§a» §7Sorry, this player has left the server,\n§a» §7please wait until he comes back."
-  long: 30
-  toolong: "§a» §7That name is too long!\n§a» §7The maximum number of characters is: §a{1}"
-  success: "§a» §7Your {0}'s name just set to §a{1}§7."
-  success-admin: "§c» §7Name §c{1}§7's {0} set to §c{2}§7."
-  gift-get: "§a» §7You just got an item from §a{1}§7!"
-  gift-get-not-place: "§a» §7You have no space in your inventory, the gift has been dropped."
-  gift-give: "§a» §7The item was successfully delivered to §a{1}§7!"
-  gift-cooldown: "§a» §7You can give the next gift only in §a{1} §7seconds."
-
-  # Use {1} for amount of cleared items on the ground.
-  abyss-open: "§3» §7Removed §3{1} §7items from the ground! They fell into the §3/abyss§7."
-  abyss-timer: "§3» §7Items on the ground will be removed in §3{1} §7seconds."
-  abyss-last3msg: "§3» §7{1}"
-  # You may use {1} for the remaining time.
-  abyss-closed: "§3» §7The §3abyss §7is closed for now."
-  abyss-isclosing: "§3» §7The §3abyss §7has just been §4closed§7."
-
 items: # Support colors by '&' !!! :>
   title: "%vault_prefix%%player_name%"
   profile:
@@ -135,6 +109,7 @@ nametags:
 interact:
   enable: true
   antypvptime: 10
+  media-long: 25
 
 abyss:
   enable: true

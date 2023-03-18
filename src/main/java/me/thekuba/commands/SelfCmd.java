@@ -5,25 +5,21 @@ import java.util.Arrays;
 import java.util.List;
 
 import me.thekuba.Ignotus;
+import me.thekuba.IgnotusCommand;
 import me.thekuba.inventories.InteractInventory;
-import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.command.TabCompleter;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.util.StringUtil;
-import org.jetbrains.annotations.NotNull;
 
-public class SelfCommand implements CommandExecutor, TabCompleter {
-  private final Ignotus plugin = (Ignotus) Bukkit.getServer().getPluginManager().getPlugin("Ignotus");
-  private final FileConfiguration config = this.plugin.getConfig();
-
+public class SelfCmd extends IgnotusCommand {
   private static final String[] COMMANDS = new String[0];
 
+  public SelfCmd(Ignotus plugin, String permission) {
+    super(plugin, permission);
+  }
 
-  public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+  public boolean command(CommandSender sender, Command cmd, String label, String[] args) {
     if (!(sender instanceof Player))
       return true; 
 
@@ -36,7 +32,7 @@ public class SelfCommand implements CommandExecutor, TabCompleter {
 
   }
   
-  public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, @NotNull String[] args) {
+  public List<String> tabComplete(CommandSender sender, Command command, String alias, String[] args) {
     List<String> completions = new ArrayList<>();
     StringUtil.copyPartialMatches(args[0], Arrays.asList(COMMANDS), completions);
     return completions;

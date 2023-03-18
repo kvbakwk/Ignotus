@@ -6,35 +6,37 @@ prefix: Ignotus
 authors: [ thekuba ]
 website: http://kvba.pl/
 depend:
-  - PlaceholderAPI
   - NBTAPI
   - Vault
+softdepend:
+  - PlaceholderAPI
   - SuperVanish
 commands:
   set:
     description: Set yourself media.
     usage: /set <profil> <nazwa>
     aliases: ustaw
-    permission: ignotus.set
+    permission: ignotus.cmd.set
     permission-message: §4» §cYou do not have access to this command.
   setadmin:
     description: Set player's media.
     usage: /setadmin <profil> <nick> <nazwa>
     aliases: ustawadmin
-    permission: ignotus.admin
+    permission: ignotus.cmd.admin.setadmin
     permission-message: §4» §cYou do not have access to this command.
   abyss:
     description: Open abyss.
     usage: /abyss
     aliases: otchlan
-    permission: ignotus.abyss
+    permission: ignotus.cmd.abyss
     permission-message: §4» §cYou do not have access to this command.
   self:
     description: Open yourself profile.
     usage: /self
     aliases: ja
-    permission: ignotus.self
+    permission: ignotus.cmd.self
     permission-message: §4» §cYou do not have access to this command.
   ignotus:
     description: Help.
     usage: /ignotus
+    permission: ignotus.cmd.ignotus
