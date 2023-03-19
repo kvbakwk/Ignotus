@@ -75,7 +75,7 @@ public class IgnotusItem extends ItemStack {
   public void setStringNBT(String key, String value) {
     NBTItem nbti = new NBTItem(this);
     if (!this.isNBT) {
-      nbti.setBoolean("PersiItem", true);
+      nbti.setBoolean("IgnotusItem", true);
       this.isNBT = true;
     } 
     nbti.setString(key, value);
@@ -93,7 +93,7 @@ public class IgnotusItem extends ItemStack {
   public void setIntNBT(String key, int value) {
     NBTItem nbti = new NBTItem(this);
     if (!this.isNBT) {
-      nbti.setBoolean("PersiItem", true);
+      nbti.setBoolean("IgnotusItem", true);
       this.isNBT = true;
     } 
     nbti.setInteger(key, value);
@@ -111,7 +111,7 @@ public class IgnotusItem extends ItemStack {
   public void setBooleanNBT(String key, boolean value) {
     NBTItem nbti = new NBTItem(this);
     if (!this.isNBT) {
-      nbti.setBoolean("PersiItem", true);
+      nbti.setBoolean("Ignotustem", true);
       this.isNBT = true;
     } 
     nbti.setBoolean(key, value);

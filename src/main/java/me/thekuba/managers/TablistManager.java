@@ -9,11 +9,11 @@ import org.bukkit.entity.Player;
 
 import java.util.List;
 
-public class TabManager {
+public class TablistManager {
     private final Ignotus plugin;
     private final FileConfiguration config;
 
-    public TabManager(Ignotus plugin) {
+    public TablistManager(Ignotus plugin) {
         this.plugin = plugin;
         this.config = plugin.getConfig();
 

@@ -21,12 +21,12 @@ public class AbyssCmd extends IgnotusCommand {
   public boolean command(CommandSender sender, Command command, String label, String[] args) {
     if (!(sender instanceof Player))
       return true; 
-    if (this.plugin.clear != null) {
+    if (this.plugin.abyss != null) {
       Player player = (Player) sender;
-      if (    this.plugin.clear.getTime() < this.config.getInt("abyss.interval") - this.config.getInt("abyss.lookable") &&
+      if (    this.plugin.abyss.getTime() < this.config.getInt("abyss.interval") - this.config.getInt("abyss.lookable") &&
               this.config.getInt("abyss.lookable") > 0) {
         player.sendMessage(plugin.colorCodes(messagesConfig.getString("abyss.closed")
-                .replace("{1}", Integer.toString(this.plugin.clear.getTime()))));
+                .replace("{1}", Integer.toString(this.plugin.abyss.getTime()))));
         return true;
       } 
       player.openInventory(this.plugin.abyssInv.get(0));

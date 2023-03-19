@@ -71,8 +71,8 @@ public class IgnotusExpansion extends PlaceholderExpansion {
       return discord;
     } 
     if (params.equalsIgnoreCase("abyss3")) {
-      if (this.plugin.clear != null) {
-        String time = Integer.toString(this.plugin.clear.getTime());
+      if (this.plugin.abyss != null) {
+        String time = Integer.toString(this.plugin.abyss.getTime());
         if (time.length() == 3)
           return time; 
         if (time.length() == 2)
@@ -82,8 +82,8 @@ public class IgnotusExpansion extends PlaceholderExpansion {
       return "Abyss is disabled.";
     }
     if (params.equalsIgnoreCase("abyss")) {
-      if (this.plugin.clear != null) {
-        return Integer.toString(this.plugin.clear.getTime());
+      if (this.plugin.abyss != null) {
+        return Integer.toString(this.plugin.abyss.getTime());
       }
       return "Abyss is disabled.";
     }

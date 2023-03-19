@@ -4,10 +4,12 @@ import me.thekuba.commands.*;
 import me.thekuba.handlers.*;
 import me.thekuba.inventories.AbyssInventory;
 import me.thekuba.managers.AbyssManager;
-import me.thekuba.managers.TabManager;
+import me.thekuba.managers.NametagManager;
+import me.thekuba.managers.TablistManager;
 import me.thekuba.placeholders.IgnotusExpansion;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -22,11 +24,13 @@ public final class Ignotus extends JavaPlugin implements Listener {
 
     public IgnotusFile configFile, playersFile, groupsFile, messagesFile;
     public DamageHandler pvp;
-    public AbyssManager clear;
-    public static Permission perms;
+    public AbyssManager abyss;
+    public NametagManager nametag;
     public List<Inventory> abyssInv = new ArrayList<>();
     public PlayerJoinHandler playerJoin;
+    public static Permission perms;
 
+    private final String[] depends = {"NBTAPI", "Vault"};
 
     @Override
     public void onEnable() {
@@ -35,24 +39,14 @@ public final class Ignotus extends JavaPlugin implements Listener {
         this.groupsFile = new IgnotusFile(this, "groups");
         this.messagesFile = new IgnotusFile(this, "messages");
 
-        if (Bukkit.getPluginManager().getPlugin("NBTAPI") == null) {
-            toConsoleWarn("You don't have NBTAPI! This plugin is required.");
-            Bukkit.getPluginManager().disablePlugin(this);
-        }
-        if (Bukkit.getPluginManager().getPlugin("Vault") == null) {
-            toConsoleWarn("You don't have Vault! This plugin is required.");
-            Bukkit.getPluginManager().disablePlugin(this);
-        }
+        for (String depend : depends)
+            if (Bukkit.getPluginManager().getPlugin(depend) == null) {
+                toConsoleWarn("You don't have " + depend + "! This plugin is required.");
+                Bukkit.getPluginManager().disablePlugin(this);
+            }
 
-
-        if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") == null) {
-            toConsoleWarn("You don't have PlaceholderAPI.");
-        } else {
+        if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null)
             (new IgnotusExpansion()).register();
-        }
-        if (Bukkit.getPluginManager().getPlugin("SuperVanish") == null) {
-            toConsoleWarn("You don't have SuperVanish.");
-        }
 
         setupPermissions();
 
@@ -65,14 +59,18 @@ public final class Ignotus extends JavaPlugin implements Listener {
         new PlayerClickHandler(this);
         new ClickInvHandler(this);
         new CloseInvHandler(this);
-        new TabManager(this);
 
-        this.playerJoin = new PlayerJoinHandler(this);
+        new TablistManager(this);
+        this.nametag = new NametagManager(this);
+        for (Player player : Bukkit.getOnlinePlayers())
+            this.nametag.addNametag(player);
+
+        new PlayerJoinHandler(this);
         this.pvp = new DamageHandler(this);
 
         if (getConfig().getBoolean("abyss.enable")) {
-            this.clear = new AbyssManager(this);
-            List<ItemStack> items = this.clear.getItems();
+            this.abyss = new AbyssManager(this);
+            List<ItemStack> items = this.abyss.getItems();
             applyAbyss(items);
         }
 
@@ -80,7 +78,7 @@ public final class Ignotus extends JavaPlugin implements Listener {
     }
     @Override
     public void onDisable() {
-        playerJoin.clearNameTags();
+        nametag.removeNametags();
     }
 
 

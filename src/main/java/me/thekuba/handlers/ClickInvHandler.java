@@ -107,13 +107,13 @@ public class ClickInvHandler implements Listener {
                         .replace("{1}", player2.getName())));
                 player2.sendMessage(plugin.colorCodes(messagesConfig.getString("gift.get")
                         .replace("{1}", player.getName())));
-                if (item.getStringNBT("hasFlagPersival").equals("no"))
+                if (item.getStringNBT("hasFlagIgnotus").equals("no"))
                   item.removeFlag(ItemFlag.HIDE_ATTRIBUTES);
                 item.removeNBT("ignotusId");
                 item.removeNBT("isConduit");
-                item.removeNBT("PersiItem");
-                item.removeNBT("hasFlagPersival");
-                item.removeNBT("hasLorePersival");
+                item.removeNBT("IgnotusItem");
+                item.removeNBT("hasFlagIgnotus");
+                item.removeNBT("hasLoreIgnotus");
                 item = removeLore(item);
                 if(player2.getInventory().firstEmpty() == -1) {
                   player2.sendMessage(plugin.colorCodes(messagesConfig.getString("gift.get-not-place")));
@@ -127,13 +127,13 @@ public class ClickInvHandler implements Listener {
                   cooldown.put(player, System.currentTimeMillis() + (this.config.getInt("items.gift.cooldown") * 1000L));
               } else {
                 e.setCancelled(true);
-                if (item.getStringNBT("hasFlagPersival").equals("no"))
+                if (item.getStringNBT("hasFlagIgnotus").equals("no"))
                   item.removeFlag(ItemFlag.HIDE_ATTRIBUTES);
                 item.removeNBT("ignotusId");
                 item.removeNBT("isConduit");
-                item.removeNBT("PersiItem");
-                item.removeNBT("hasFlagPersival");
-                item.removeNBT("hasLorePersival");
+                item.removeNBT("IgnotusItem");
+                item.removeNBT("hasFlagIgnotus");
+                item.removeNBT("hasLoreIgnotus");
                 item = removeLore(item);
                 if(player.getInventory().firstEmpty() == -1)
                   player.getWorld().dropItem(player2.getLocation(), item);
@@ -149,15 +149,15 @@ public class ClickInvHandler implements Listener {
             item.setStringNBT("ignotusId", "conduit");
             item.setStringNBT("isConduit", "no");
             if(item.hasFlag(ItemFlag.HIDE_ATTRIBUTES))
-              item.setStringNBT("hasFlagPersival", "yes");
+              item.setStringNBT("hasFlagIgnotus", "yes");
             else {
               item.addFlag(ItemFlag.HIDE_ATTRIBUTES);
-              item.setStringNBT("hasFlagPersival", "no");
+              item.setStringNBT("hasFlagIgnotus", "no");
             }
             if(item.getLore() == null)
-              item.setStringNBT("hasLorePersival", "no");
+              item.setStringNBT("hasLoreIgnotus", "no");
             else
-              item.setStringNBT("hasLorePersival", "yes");
+              item.setStringNBT("hasLoreIgnotus", "yes");
             item = addLore(item);
             player.getOpenInventory().setItem(37, item);
             return;

@@ -32,15 +32,15 @@ public class CloseInvHandler implements Listener {
       return;
 
     // Interact Inventory Close
-    if ((new IgnotusItem(e.getInventory().getItem(0))).getStringNBT("inventory").equals("interactPersival")
+    if ((new IgnotusItem(e.getInventory().getItem(0))).getStringNBT("inventory").equals("interactIgnotus")
             && (new IgnotusItem(e.getInventory().getItem(37))).getStringNBT("isConduit").equals("no")) {
 
       Player player = Bukkit.getPlayer(UUID.fromString((new IgnotusItem(e.getInventory().getItem(0))).getStringNBT("p1")));
       IgnotusItem item = new IgnotusItem(e.getInventory().getItem(37));
 
-      if (item.getStringNBT("hasFlagPersival").equals("no"))
+      if (item.getStringNBT("hasFlagIgnotus").equals("no"))
         item.removeFlag(ItemFlag.HIDE_ATTRIBUTES); 
-      if (item.getStringNBT("hasLorePersival").equals("yes")) {
+      if (item.getStringNBT("hasLoreIgnotus").equals("yes")) {
         List<String> loreItem = item.getLore();
         for (String ignored : this.config.getStringList("items.gift.lore-item"))
           loreItem.remove(loreItem.size() - 1);
@@ -48,11 +48,11 @@ public class CloseInvHandler implements Listener {
       } else {
         item.setLore(null, false, false, null);
       }
-      item.removeNBT("persiId");
+      item.removeNBT("ignotusId");
       item.removeNBT("isConduit");
-      item.removeNBT("PersiItem");
-      item.removeNBT("hasFlagPersival");
-      item.removeNBT("hasLorePersival");
+      item.removeNBT("IgnotusItem");
+      item.removeNBT("hasFlagIgnotus");
+      item.removeNBT("hasLoreIgnotus");
       if(player.getInventory().firstEmpty() == -1)
         player.getWorld().dropItem(player.getLocation(), item);
       else
