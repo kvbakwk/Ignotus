@@ -86,15 +86,15 @@ public class AbyssManager {
               }
               if (x == interval * 20 - 60
                       && !messagesConfig.getString("abyss.last3msg").equals(""))
-                Bukkit.broadcastMessage(this.plugin.colorCodes(config.getString("abyss.last3msg")
+                Bukkit.broadcastMessage(this.plugin.colorCodes(messagesConfig.getString("abyss.last3msg")
                         .replace("{1}", "3")));
               if (x == interval * 20 - 40
                       && !messagesConfig.getString("abyss.last3msg").equals(""))
-                Bukkit.broadcastMessage(this.plugin.colorCodes(config.getString("abyss.last3msg")
+                Bukkit.broadcastMessage(this.plugin.colorCodes(messagesConfig.getString("abyss.last3msg")
                         .replace("{1}", "2")));
               if (x == interval * 20 - 20
                       && !messagesConfig.getString("abyss.last3msg").equals(""))
-                Bukkit.broadcastMessage(this.plugin.colorCodes(config.getString("abyss.last3msg")
+                Bukkit.broadcastMessage(this.plugin.colorCodes(messagesConfig.getString("abyss.last3msg")
                         .replace("{1}", "1")));
               if (x == config.getInt("abyss.lookable") * 20 && config.getInt("abyss.lookable") > 0)
                 Bukkit.broadcastMessage(this.plugin.colorCodes(messagesConfig.getString("abyss.is-closing")));
