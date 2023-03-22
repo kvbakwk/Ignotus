@@ -4,6 +4,13 @@
 # It's all from me. Have a fun!
 # Author: thekuba
 #
+mysql:
+  enable: true
+  host: localhost
+  port: 3306
+  database: ignotus
+  user: user_ignotus
+  password: zaq1@WSX
 
 items: # Support colors by '&' !!! :>
   title: "%vault_prefix%%player_name%"

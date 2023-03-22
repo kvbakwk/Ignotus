@@ -4,6 +4,7 @@ import me.thekuba.commands.*;
 import me.thekuba.handlers.*;
 import me.thekuba.inventories.AbyssInventory;
 import me.thekuba.managers.AbyssManager;
+import me.thekuba.managers.DatabaseManager;
 import me.thekuba.managers.NametagManager;
 import me.thekuba.managers.TablistManager;
 import me.thekuba.placeholders.IgnotusExpansion;
@@ -27,17 +28,23 @@ public final class Ignotus extends JavaPlugin implements Listener {
     public AbyssManager abyss;
     public NametagManager nametag;
     public List<Inventory> abyssInv = new ArrayList<>();
-    public PlayerJoinHandler playerJoin;
     public static Permission perms;
+    public DatabaseManager database;
 
     private final String[] depends = {"NBTAPI", "Vault"};
 
     @Override
     public void onEnable() {
         this.configFile = new IgnotusFile(this, "config");
-        this.playersFile = new IgnotusFile(this, "players");
         this.groupsFile = new IgnotusFile(this, "groups");
         this.messagesFile = new IgnotusFile(this, "messages");
+
+        if(getConfig().getBoolean("mysql.enable")) {
+            this.database = new DatabaseManager(this);
+        } else {
+            this.playersFile = new IgnotusFile(this, "players");
+            database = null;
+        }
 
         for (String depend : depends)
             if (Bukkit.getPluginManager().getPlugin(depend) == null) {
@@ -78,7 +85,8 @@ public final class Ignotus extends JavaPlugin implements Listener {
     }
     @Override
     public void onDisable() {
-        nametag.removeNametags();
+        if(!Objects.equals(nametag, null))
+            nametag.removeNametags();
     }
 
 

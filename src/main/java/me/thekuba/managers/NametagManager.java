@@ -15,11 +15,12 @@ import org.bukkit.scoreboard.Team;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class NametagManager {
 
     private final Ignotus plugin;
-    private final FileConfiguration playersConfig, groupsConfig;
+    private FileConfiguration playersConfig, groupsConfig;
 
     private int x;
     private final Map<Player, ArmorStand[]> armorStands = new HashMap<>();
@@ -27,27 +28,40 @@ public class NametagManager {
 
     public NametagManager(Ignotus plugin) {
         this.plugin = plugin;
-        this.playersConfig = plugin.playersFile.getConfig();
+        if(Objects.equals(plugin.database, null))
+            this.playersConfig = plugin.playersFile.getConfig();
         this.groupsConfig = plugin.groupsFile.getConfig();
     }
 
     public void addNametag(Player player) {
         final Scoreboard score = Bukkit.getScoreboardManager().getMainScoreboard();
-
         this.setTeam(player, score);
-
         ArmorStand[] armorStand;
         final String name = getPrefix(player);
-        if (!this.playersConfig.getString("players." + player.getUniqueId() + ".status").equals("off"))
+
+        String playerStatus;
+
+        if(Objects.equals(plugin.database, null))
+            playerStatus = "§7" + this.playersConfig.getString("players." + player.getUniqueId() + ".status");
+        else
+            playerStatus = "§7" + plugin.database.getValue(player, "status");
+
+        if (!playerStatus.equals("§7off"))
             armorStand = new ArmorStand[] { (ArmorStand)player.getWorld().spawnEntity(player.getLocation().add(0.0D, 1.75D, 0.0D), EntityType.ARMOR_STAND), (ArmorStand)player.getWorld().spawnEntity(player.getLocation().add(0.0D, 2.05D, 0.0D), EntityType.ARMOR_STAND) };
         else
             armorStand = new ArmorStand[] { (ArmorStand)player.getWorld().spawnEntity(player.getLocation().add(0.0D, 1.75D, 0.0D), EntityType.ARMOR_STAND), (ArmorStand)player.getWorld().spawnEntity(player.getLocation().add(0.0D, 1.75D, 0.0D), EntityType.ARMOR_STAND) };
         this.armorStands.put(player, armorStand);
 
-        final String status = "§7" + this.playersConfig.getString("players." + player.getUniqueId() + ".status");
 
         x = 0;
         Bukkit.getScheduler().runTaskTimer(this.plugin, () -> {
+
+            String status;
+
+            if(Objects.equals(plugin.database, null))
+                status = "§7" + this.playersConfig.getString("players." + player.getUniqueId() + ".status");
+            else
+                status = "§7" + plugin.database.getValue(player, "status");
 
             if (x % 20 == 0)
                 this.setTeam(player, score);
@@ -62,20 +76,20 @@ public class NametagManager {
                             a.setBasePlate(false);
                             a.setVisible(false);
                             a.setMarker(true);
-                            a.setCustomName(this.getPrefix(playerT));
-                            a.setCustomName(this.getStatus("§7" + playersConfig.getString("players." + player.getUniqueId() + ".status"), playerT));
                             a.teleport(playerT.getLocation().add(0.0D, 1.05D, 0.0D));
                         }
+                    armorStands.get(playerT)[0].setCustomName(this.getStatus(playerStatus, playerT));
+                    armorStands.get(playerT)[1].setCustomName(this.getPrefix(playerT));
                 }
 
             if (armorStands.isEmpty() || armorStands.get(player) == null)
                 return;
 
             if (armorStands.get(player)[1] != null && player.isOnline()) {
-                if (!playersConfig.getString("players." + player.getUniqueId() + ".status").equals("off")) {
+                if (!status.equals("§7off")) {
                     (armorStands.get(player))[0].setCustomNameVisible(true);
-                    if (!getPrefix(player).equals(name) || !playersConfig.getString("players." + player.getUniqueId() + ".status").equals(status)) {
-                        (armorStands.get(player))[0].setCustomName(getStatus("§7" + playersConfig.getString("players." + player.getUniqueId() + ".status"), player));
+                    if (!getPrefix(player).equals(name) || !status.equals(playerStatus)) {
+                        (armorStands.get(player))[0].setCustomName(getStatus(status, player));
                         (armorStands.get(player))[1].setCustomName(getPrefix(player));
                     }
                     if (player.getGameMode().equals(GameMode.SPECTATOR)) {
@@ -100,8 +114,8 @@ public class NametagManager {
                     }
                 } else {
                     (armorStands.get(player))[0].setCustomNameVisible(false);
-                    if (!getPrefix(player).equals(name) || !this.playersConfig.getString("players." + player.getUniqueId() + ".status").equals(status)) {
-                        (armorStands.get(player))[0].setCustomName(this.getStatus("§7" + this.playersConfig.getString("players." + player.getUniqueId() + ".status"), player));
+                    if (!getPrefix(player).equals(name) || !status.equals(playerStatus)) {
+                        (armorStands.get(player))[0].setCustomName(this.getStatus(status, player));
                         (armorStands.get(player))[1].setCustomName(this.getPrefix(player));
                     }
                     if (player.getGameMode().equals(GameMode.SPECTATOR)) {

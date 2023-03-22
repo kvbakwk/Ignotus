@@ -64,7 +64,7 @@ public class AbyssManager {
           for (Player p : Bukkit.getOnlinePlayers()) {
             if (p.getOpenInventory() != null) {
               IgnotusItem item = new IgnotusItem(p.getOpenInventory().getItem(0));
-              if (item != null && item.getType() != Material.AIR && item.getStringNBT("inventory").equals("abyssPersival"))
+              if (item != null && item.getType() != Material.AIR && item.getStringNBT("inventory").equals("abyssIgnotus"))
                 p.closeInventory();
             }
           }

@@ -50,7 +50,6 @@ public class ClickInvHandler implements Listener {
             return;
           case "blank":
             e.setCancelled(true);
-            System.out.println("sss");
             return;
           default:
             if(e.getWhoClicked().getInventory().equals(e.getClickedInventory()))

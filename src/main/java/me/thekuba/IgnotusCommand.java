@@ -13,13 +13,12 @@ import java.util.List;
 public abstract class IgnotusCommand implements CommandExecutor, TabCompleter {
 
     public final Ignotus plugin;
-    public final FileConfiguration config, playersConfig, groupsConfig, messagesConfig;
+    public final FileConfiguration config, groupsConfig, messagesConfig;
     public final String permission;
 
     public IgnotusCommand(Ignotus plugin, String permission) {
         this.plugin = plugin;
         this.config = plugin.getConfig();
-        this.playersConfig = plugin.playersFile.getConfig();
         this.groupsConfig = plugin.groupsFile.getConfig();
         this.messagesConfig = plugin.messagesFile.getConfig();
         this.permission = permission;

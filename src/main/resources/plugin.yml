@@ -17,26 +17,24 @@ commands:
     usage: /set <profil> <nazwa>
     aliases: ustaw
     permission: ignotus.cmd.set
-    permission-message: §4» §cYou do not have access to this command.
   setadmin:
     description: Set player's media.
     usage: /setadmin <profil> <nick> <nazwa>
     aliases: ustawadmin
     permission: ignotus.cmd.admin.setadmin
-    permission-message: §4» §cYou do not have access to this command.
   abyss:
     description: Open abyss.
     usage: /abyss
     aliases: otchlan
     permission: ignotus.cmd.abyss
-    permission-message: §4» §cYou do not have access to this command.
   self:
     description: Open yourself profile.
     usage: /self
     aliases: ja
     permission: ignotus.cmd.self
-    permission-message: §4» §cYou do not have access to this command.
   ignotus:
     description: Help.
     usage: /ignotus
     permission: ignotus.cmd.ignotus
+libraries:
+  - com.mysql:mysql-connector-j:8.0.32

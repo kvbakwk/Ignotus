@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import com.google.common.base.Objects;
 import me.thekuba.Ignotus;
 import me.thekuba.IgnotusCommand;
 import org.bukkit.command.Command;
@@ -14,12 +15,14 @@ import org.bukkit.entity.Player;
 import org.bukkit.util.StringUtil;
 
 public class SetCmd extends IgnotusCommand {
-  private final FileConfiguration playersConfig = this.plugin.playersFile.getConfig();
+  private FileConfiguration playersConfig;
 
   private static final String[] COMMANDS = new String[] { "instagram", "youtube", "twitch", "discord", "snapchat", "status" };
 
   public SetCmd(Ignotus plugin, String permission) {
     super(plugin, permission);
+    if(Objects.equal(plugin.database, null))
+      this.playersConfig = plugin.playersFile.getConfig();
   }
 
   public boolean command(CommandSender sender, Command cmd, String label, String[] args) {
@@ -54,8 +57,12 @@ public class SetCmd extends IgnotusCommand {
             player.sendMessage(plugin.colorCodes(this.messagesConfig.getString("commands.success.set")
                     .replace("{1}", argument1)
                     .replace("{0}", args[0].toLowerCase())));
-            this.playersConfig.set("players." + player.getUniqueId() + "." + argument0, argument1);
-            this.plugin.playersFile.saveConfig();
+            if(java.util.Objects.equals(plugin.database, null)) {
+              this.playersConfig.set("players." + player.getUniqueId() + "." + argument0, argument1);
+              this.plugin.playersFile.saveConfig();
+            } else {
+              this.plugin.database.setValue(player, argument0, argument1);
+            }
             return true;
           } 
         } else
@@ -85,7 +92,12 @@ public class SetCmd extends IgnotusCommand {
     if (args.length == 1)
       StringUtil.copyPartialMatches(args[0], Arrays.asList(COMMANDS), completions);
     else if (args.length == 2) {
-      String tab = this.playersConfig.getString("players." + player.getUniqueId() + "." + args[0].toLowerCase());
+      String tab;
+      if(java.util.Objects.equals(plugin.database, null)) {
+        tab = this.playersConfig.getString("players." + player.getUniqueId() + "." + args[0].toLowerCase());
+      } else {
+        tab = this.plugin.database.getValue(player, args[0].toLowerCase());
+      }
       if (tab == null)
         tab = ""; 
       StringUtil.copyPartialMatches(args[1], Collections.singletonList(tab), completions);
