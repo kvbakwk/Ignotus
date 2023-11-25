@@ -1,2 +1,0 @@
-# Ignotus
-Minecraft Plugin
